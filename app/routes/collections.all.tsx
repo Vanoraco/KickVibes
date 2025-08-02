@@ -5,7 +5,7 @@ import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {ProductItem} from '~/components/ProductItem';
 
 export const meta: MetaFunction<typeof loader> = () => {
-  return [{title: `Hydrogen | Products`}];
+  return [{title: `KickVibes | All Products`}];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -25,7 +25,7 @@ export async function loader(args: LoaderFunctionArgs) {
 async function loadCriticalData({context, request}: LoaderFunctionArgs) {
   const {storefront} = context;
   const paginationVariables = getPaginationVariables(request, {
-    pageBy: 8,
+    pageBy: 12,
   });
 
   const [{products}] = await Promise.all([
@@ -50,20 +50,40 @@ export default function Collection() {
   const {products} = useLoaderData<typeof loader>();
 
   return (
-    <div className="collection">
-      <h1>Products</h1>
-      <PaginatedResourceSection
-        connection={products}
-        resourcesClassName="products-grid"
-      >
-        {({node: product, index}) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        )}
-      </PaginatedResourceSection>
+    <div className="enhanced-all-products">
+      {/* Hero Section */}
+      <div className="products-hero">
+        <div className="products-hero-content">
+          <h1 className="products-hero-title">All Products</h1>
+          <p className="products-hero-subtitle">
+            Discover our complete collection of premium sneakers
+          </p>
+        </div>
+      </div>
+
+      {/* Results Section */}
+      <div className="products-results">
+        <div className="products-results-container">
+          <div className="products-results-header">
+            <span className="products-count">
+              {products?.nodes?.length || 0} products found
+            </span>
+          </div>
+
+          <PaginatedResourceSection
+            connection={products}
+            resourcesClassName="products-grid"
+          >
+            {({node: product, index}) => (
+              <ProductItem
+                key={product.id}
+                product={product}
+                loading={index < 8 ? 'eager' : undefined}
+              />
+            )}
+          </PaginatedResourceSection>
+        </div>
+      </div>
     </div>
   );
 }
@@ -119,3 +139,5 @@ const CATALOG_QUERY = `#graphql
   }
   ${COLLECTION_ITEM_FRAGMENT}
 ` as const;
+
+

@@ -7,9 +7,13 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
+import {KickVibesHero} from '~/components/KickVibesHero';
+import {CategorySection} from '~/components/CategorySection';
+import {PromoSection} from '~/components/PromoSection';
+import {ProductsSection} from '~/components/ProductsSection';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{title: 'KickVibes | Home'}];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -60,8 +64,10 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
-      <FeaturedCollection collection={data.featuredCollection} />
-      <RecommendedProducts products={data.recommendedProducts} />
+      <KickVibesHero />
+      <CategorySection />
+      <PromoSection />
+      <ProductsSection products={data.recommendedProducts} />
     </div>
   );
 }
@@ -158,7 +164,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   }
   query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
+    products(first: 8, sortKey: UPDATED_AT, reverse: true) {
       nodes {
         ...RecommendedProduct
       }

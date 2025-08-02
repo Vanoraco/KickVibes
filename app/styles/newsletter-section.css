@@ -1,0 +1,147 @@
+/* Clean Newsletter Section */
+.newsletter-section {
+  background: #f8fafc;
+  padding: 4rem 0;
+  border-top: 1px solid #e2e8f0;
+}
+
+.newsletter-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.newsletter-content {
+  margin-bottom: 0;
+}
+
+/* Title */
+.newsletter-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  letter-spacing: -0.5px;
+}
+
+/* Description */
+.newsletter-description {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+/* Form */
+.newsletter-form {
+  margin-bottom: 1rem;
+}
+
+.newsletter-input-group {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.newsletter-input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 0.95rem;
+  color: #1e293b;
+  transition: border-color 0.2s ease;
+}
+
+.newsletter-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.newsletter-input::placeholder {
+  color: #9ca3af;
+}
+
+.newsletter-button {
+  padding: 0.875rem 1.5rem;
+  background: #1e293b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.newsletter-button:hover:not(:disabled) {
+  background: #0f172a;
+}
+
+.newsletter-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.newsletter-privacy {
+  font-size: 0.85rem;
+  color: #64748b;
+  text-align: center;
+}
+
+/* Success State */
+.newsletter-success {
+  text-align: center;
+}
+
+.newsletter-success-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.newsletter-success-message {
+  font-size: 1rem;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .newsletter-section {
+    padding: 3rem 0;
+  }
+
+  .newsletter-container {
+    padding: 0 1.5rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.75rem;
+  }
+
+  .newsletter-input-group {
+    flex-direction: column;
+    max-width: none;
+  }
+
+  .newsletter-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter-container {
+    padding: 0 1rem;
+  }
+
+  .newsletter-title {
+    font-size: 1.5rem;
+  }
+}

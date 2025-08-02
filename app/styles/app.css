@@ -1,3 +1,9 @@
+/* Import component styles - must be at the top */
+@import './promo-section.css';
+@import './category-section.css';
+@import './products-section.css';
+@import './enhanced-all-products.css';
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -6,6 +12,22 @@
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+}
+
+/* Prevent horizontal scrollbar */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Fix for full-width sections */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 img {
@@ -159,55 +181,745 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * --------------------------------------------------
-* components/Header
+* components/Header - KickVibes Design
 * --------------------------------------------------
 */
-.header {
-  align-items: center;
-  background: #fff;
-  display: flex;
-  height: var(--header-height);
-  padding: 0 1rem;
-  position: sticky;
+.kickvibes-header {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #2d1b69 50%, #1e3a8a 75%, #0f172a 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: fixed;
   top: 0;
-  z-index: 1;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: backgroundPulse 8s ease-in-out infinite;
+  transform: translateY(0);
+  transition: transform 0.3s ease-in-out;
 }
 
-.header-menu-mobile-toggle {
-  @media (min-width: 48em) {
+.kickvibes-header.header-hidden {
+  transform: translateY(-100%);
+}
+
+.kickvibes-header.header-visible {
+  transform: translateY(0);
+}
+
+.kickvibes-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 90px;
+  transition: all 0.3s ease;
+}
+
+.kickvibes-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.kickvibes-logo-img {
+  height: 90px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+/* Desktop Navigation */
+.kickvibes-header-menu-desktop {
+  display: none;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .kickvibes-header-menu-desktop {
+    display: flex;
+  }
+}
+
+.kickvibes-nav-item {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.kickvibes-nav-item:hover {
+  color: #e2e8f0;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.kickvibes-nav-item.active {
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(59, 130, 246, 0.7);
+}
+
+.kickvibes-nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.6));
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+}
+
+/* Mobile Navigation */
+.kickvibes-header-menu-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.kickvibes-header-menu-mobile .kickvibes-nav-item {
+  font-size: 16px;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Header Actions */
+.kickvibes-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.kickvibes-mobile-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .kickvibes-mobile-toggle {
     display: none;
   }
 }
 
-.header-menu-mobile {
-  display: flex;
-  flex-direction: column;
-  grid-gap: 1rem;
+.kickvibes-mobile-toggle:hover {
+  color: #e2e8f0;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
 }
 
-.header-menu-desktop {
-  display: none;
-  grid-gap: 1rem;
-  @media (min-width: 45em) {
-    display: flex;
-    grid-gap: 1rem;
-    margin-left: 3rem;
+.kickvibes-search-toggle,
+.kickvibes-cart-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.kickvibes-search-toggle:hover,
+.kickvibes-cart-toggle:hover {
+  color: #e2e8f0;
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.kickvibes-cart-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  color: #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 0 12px rgba(59, 130, 246, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .kickvibes-header-container {
+    padding: 0 1rem;
+    height: 70px;
+  }
+
+  .kickvibes-logo-img {
+    height: 45px;
   }
 }
 
-.header-menu-item {
-  cursor: pointer;
+/*
+* --------------------------------------------------
+* components/KickVibesHero - Exact 
+* --------------------------------------------------
+*/
+
+/* Ensure no container constraints and prevent horizontal overflow */
+.home {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
-.header-ctas {
-  align-items: center;
+.kickvibes-hero {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #2d1b69 50%, #1e3a8a 75%, #0f172a 100%);
+  min-height: calc(100vh - 90px);
+  position: relative;
+  overflow: hidden;
   display: flex;
-  grid-gap: 1rem;
-  margin-left: auto;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  animation: backgroundPulse 8s ease-in-out infinite;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
-.header-ctas > * {
-  min-width: fit-content;
+.kickvibes-hero-container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 4rem 5%;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.kickvibes-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Dynamic Lighting Elements */
+.kickvibes-bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+
+.kickvibes-bg-circle-yellow {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.6) 0%, rgba(147, 51, 234, 0.3) 50%, transparent 100%);
+  top: -300px;
+  right: -300px;
+  animation: dramaticFloat 12s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.kickvibes-bg-circle-red {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.5) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 100%);
+  bottom: -200px;
+  left: -200px;
+  animation: dramaticFloat 15s ease-in-out infinite reverse;
+  opacity: 0.7;
+}
+
+.kickvibes-bg-circle-blue {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(147, 51, 234, 0.3) 50%, transparent 100%);
+  top: 10%;
+  left: -100px;
+  animation: dramaticFloat 18s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+/* Dynamic Geometric Elements */
+.kickvibes-bg-shape {
+  position: absolute;
+}
+
+.kickvibes-bg-diamond-red {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(45deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.2));
+  transform: rotate(45deg);
+  top: 10%;
+  right: 20%;
+  border-radius: 20px;
+  animation: neonPulse 4s ease-in-out infinite;
+  box-shadow:
+    0 0 30px rgba(59, 130, 246, 0.4),
+    inset 0 0 30px rgba(147, 51, 234, 0.2);
+}
+
+.kickvibes-bg-diamond-blue {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, rgba(236, 72, 153, 0.4), rgba(59, 130, 246, 0.2));
+  transform: rotate(45deg);
+  bottom: 20%;
+  left: 15%;
+  border-radius: 15px;
+  animation: neonPulse 6s ease-in-out infinite reverse;
+  box-shadow:
+    0 0 25px rgba(236, 72, 153, 0.5),
+    inset 0 0 25px rgba(59, 130, 246, 0.3);
+}
+
+.kickvibes-bg-square-yellow {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, rgba(34, 197, 94, 0.3), rgba(59, 130, 246, 0.2));
+  top: 65%;
+  right: 10%;
+  border-radius: 25px;
+  animation: neonPulse 5s ease-in-out infinite;
+  box-shadow:
+    0 0 35px rgba(34, 197, 94, 0.4),
+    inset 0 0 35px rgba(59, 130, 246, 0.2);
+}
+
+.kickvibes-bg-square-purple {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, rgba(147, 51, 234, 0.4), rgba(236, 72, 153, 0.3));
+  top: 35%;
+  left: 8%;
+  transform: rotate(30deg);
+  border-radius: 12px;
+  animation: neonPulse 7s ease-in-out infinite;
+  box-shadow:
+    0 0 20px rgba(147, 51, 234, 0.5),
+    inset 0 0 20px rgba(236, 72, 153, 0.3);
+}
+
+/* Dynamic Energy Lines */
+.kickvibes-bg-spring {
+  position: absolute;
+}
+
+.kickvibes-spring-left {
+  width: 3px;
+  height: 400px;
+  top: 10%;
+  left: 25%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(59, 130, 246, 0.8) 20%,
+    rgba(147, 51, 234, 0.6) 50%,
+    rgba(236, 72, 153, 0.4) 80%,
+    transparent 100%);
+  border-radius: 2px;
+  animation: energyFlow 3s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+}
+
+.kickvibes-spring-right {
+  width: 2px;
+  height: 300px;
+  bottom: 15%;
+  right: 30%;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(34, 197, 94, 0.7) 30%,
+    rgba(59, 130, 246, 0.5) 70%,
+    transparent 100%);
+  border-radius: 1px;
+  animation: energyFlow 4s ease-in-out infinite reverse;
+  box-shadow: 0 0 12px rgba(34, 197, 94, 0.5);
+}
+
+/* Dynamic Particle Effects */
+.kickvibes-hero-bg::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 20%;
+  right: 40%;
+  animation: particleFloat 8s ease-in-out infinite;
+  filter: blur(20px);
+}
+
+.kickvibes-hero-bg::after {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: 30%;
+  left: 35%;
+  animation: particleFloat 10s ease-in-out infinite reverse;
+  filter: blur(25px);
+}
+
+/* Hero Content */
+.kickvibes-hero-content {
+  color: white;
+  z-index: 10;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: slideInFromLeft 1s ease-out;
+}
+
+.kickvibes-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.kickvibes-badge-icon {
+  font-size: 16px;
+}
+
+.kickvibes-hero-title {
+  font-size: 5.5rem;
+  font-weight: 800;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 0.9;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow:
+    0 0 30px rgba(59, 130, 246, 0.5),
+    0 0 60px rgba(147, 51, 234, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: titleGlow 4s ease-in-out infinite;
+}
+
+.kickvibes-hero-subtitle {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  color: #e2e8f0;
+}
+
+.kickvibes-hero-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  opacity: 0.8;
+  max-width: 450px;
+  color: #cbd5e1;
+  font-weight: 400;
+}
+
+.kickvibes-hero-thumbnails {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.kickvibes-thumbnail {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.kickvibes-thumbnail-active {
+  border-color: white;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+  transform: scale(1.1);
+}
+
+.kickvibes-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kickvibes-shop-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+  color: #1e293b;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 30px rgba(59, 130, 246, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.kickvibes-shop-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s ease;
+}
+
+.kickvibes-shop-button:hover {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(59, 130, 246, 0.4);
+}
+
+.kickvibes-shop-button:hover::before {
+  left: 100%;
+}
+
+/* Hero Image */
+.kickvibes-hero-image {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  z-index: 5;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+.kickvibes-main-shoe {
+  position: relative;
+  z-index: 3;
+  transform: scale(1.8) translateY(-60px);
+  animation: slideInFromRight 1.2s ease-out;
+}
+
+.kickvibes-shoe-image {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+  transform: rotate(-20deg);
+  transition: transform 0.4s ease;
+}
+
+.kickvibes-shoe-image:hover {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+/* Slide in animation from right */
+@keyframes slideInFromRight {
+  0% {
+    transform: scale(1.8) translateY(-60px) translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.8) translateY(-60px) translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Dynamic Dramatic Animations */
+@keyframes backgroundPulse {
+  0%, 100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.1) saturate(1.2);
+  }
+}
+
+@keyframes dramaticFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px) scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes energyFlow {
+  0% {
+    opacity: 0.3;
+    transform: scaleY(0.8);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scaleY(1.2);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.6;
+  }
+  66% {
+    transform: translateY(-10px) translateX(-5px);
+    opacity: 0.4;
+  }
+}
+
+@keyframes titleGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 30px rgba(59, 130, 246, 0.5),
+      0 0 60px rgba(147, 51, 234, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 40px rgba(59, 130, 246, 0.7),
+      0 0 80px rgba(147, 51, 234, 0.5),
+      0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+  .kickvibes-hero {
+    min-height: calc(100vh - 70px);
+  }
+
+  .kickvibes-hero-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    width: 100%;
+  }
+
+  .kickvibes-hero-title {
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+  }
+
+  .kickvibes-hero-subtitle {
+    font-size: 1.4rem;
+  }
+
+  .kickvibes-hero-description {
+    max-width: 100%;
+  }
+
+  .kickvibes-main-shoe {
+    transform: scale(1.4) translateY(-40px);
+    animation: slideInFromRightMobile 1.2s ease-out;
+  }
+
+  .kickvibes-hero-image {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Hide some background elements on mobile */
+  .kickvibes-bg-circle-yellow,
+  .kickvibes-bg-circle-red {
+    opacity: 0.3;
+  }
+
+  /* Mobile slide in animation */
+  @keyframes slideInFromRightMobile {
+    0% {
+      transform: scale(1.4) translateY(-40px) translateX(80px);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.4) translateY(-40px) translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
 

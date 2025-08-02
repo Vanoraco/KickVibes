@@ -15,7 +15,13 @@ import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import categorySectionStyles from '~/styles/category-section.css?url';
+import promoSectionStyles from '~/styles/promo-section.css?url';
+import footerStyles from '~/styles/footer.css?url';
+import newsletterSectionStyles from '~/styles/newsletter-section.css?url';
+import notFoundStyles from '~/styles/not-found.css?url';
 import {PageLayout} from './components/PageLayout';
+import {NotFoundPage} from './components/NotFoundPage';
 
 export type RootLoader = typeof loader;
 
@@ -150,8 +156,26 @@ export function Layout({children}: {children?: React.ReactNode}) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            html {
+              overflow-x: hidden !important;
+              height: 100%;
+            }
+            body {
+              overflow-x: hidden !important;
+              height: auto !important;
+              min-height: 100% !important;
+            }
+          `
+        }} />
         <link rel="stylesheet" href={resetStyles}></link>
         <link rel="stylesheet" href={appStyles}></link>
+        <link rel="stylesheet" href={categorySectionStyles}></link>
+        <link rel="stylesheet" href={promoSectionStyles}></link>
+        <link rel="stylesheet" href={footerStyles}></link>
+        <link rel="stylesheet" href={newsletterSectionStyles}></link>
+        <link rel="stylesheet" href={notFoundStyles}></link>
         <Meta />
         <Links />
       </head>
@@ -180,12 +204,21 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  let errorMessage = 'Unknown error';
   let errorStatus = 500;
 
   if (isRouteErrorResponse(error)) {
-    errorMessage = error?.data?.message ?? error.data;
     errorStatus = error.status;
+  }
+
+  // Use our beautiful 404 page for 404 errors
+  if (errorStatus === 404) {
+    return <NotFoundPage />;
+  }
+
+  // For other errors, show a simple error message
+  let errorMessage = 'Unknown error';
+  if (isRouteErrorResponse(error)) {
+    errorMessage = error?.data?.message ?? error.data;
   } else if (error instanceof Error) {
     errorMessage = error.message;
   }
