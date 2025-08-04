@@ -1,6 +1,32 @@
 import { Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 
+// Custom hook for responsive screen size detection
+function useResponsiveScreen() {
+  const [screenSize, setScreenSize] = useState({
+    isMobile: false,
+    isTablet: false,
+    isDesktop: true
+  });
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setScreenSize({
+        isMobile: width <= 768,
+        isTablet: width > 768 && width <= 1024,
+        isDesktop: width > 1024
+      });
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  return screenSize;
+}
+
 // Custom hook for scroll progress tracking
 function useScrollProgress(elementRef: React.RefObject<HTMLElement>) {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -72,6 +98,8 @@ function PromoContent() {
 
 // Component for promo image section
 function PromoImage() {
+  const { isMobile } = useResponsiveScreen();
+
   return (
     <div className="promo-image">
       <div className="promo-shoe-container">
@@ -79,6 +107,11 @@ function PromoImage() {
           src="https://cdn.shopify.com/s/files/1/0757/9461/2478/files/proshoe.webp?v=1753864297"
           alt="Sporty & Stylish Sneakers"
           className="promo-shoe-img"
+          loading="lazy"
+          style={{
+            objectFit: 'contain',
+            objectPosition: isMobile ? 'center center' : 'center bottom'
+          }}
         />
       </div>
     </div>

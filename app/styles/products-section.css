@@ -148,7 +148,7 @@
 }
 
 .enhanced-products-title-main {
-  display: block;
+  display: inline;
   font-size: 4.5rem;
   font-weight: 900;
   color: #ffffff;
@@ -157,10 +157,11 @@
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   animation: titleSlideIn 1s ease-out 0.5s both;
+  margin-right: 1rem;
 }
 
 .enhanced-products-title-accent {
-  display: block;
+  display: inline;
   font-size: 4.5rem;
   font-weight: 900;
   background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 30%, #f472b6 60%, #fbbf24 100%);
@@ -169,7 +170,7 @@
   background-clip: text;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-top: -1rem;
+  margin-top: 0;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   filter: drop-shadow(0 4px 8px rgba(96, 165, 250, 0.3));
   animation: titleSlideIn 1s ease-out 0.7s both;
@@ -1027,6 +1028,21 @@
     align-self: flex-start;
     padding: 1rem 2rem;
   }
+
+  .enhanced-products-title-main,
+  .enhanced-products-title-accent {
+    font-size: 3.5rem;
+  }
+
+  .enhanced-products-title-main {
+    display: block;
+    margin-right: 0;
+  }
+
+  .enhanced-products-title-accent {
+    display: block;
+    margin-top: 0.25rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1116,6 +1132,16 @@
   .enhanced-products-title-accent {
     font-size: 2rem;
     letter-spacing: 1px;
+  }
+
+  .enhanced-products-title-main {
+    display: block;
+    margin-right: 0;
+  }
+
+  .enhanced-products-title-accent {
+    display: block;
+    margin-top: 0.25rem;
   }
 
   .enhanced-products-subtitle {

@@ -432,7 +432,7 @@
 
 @media (max-width: 768px) {
   .enhanced-footer-logo-img {
-    height: 70px;
+    height: 150px;
   }
 }
 
@@ -442,7 +442,7 @@
   }
 
   .enhanced-footer-logo-img {
-    height: 45px;
+    height: 120px;
   }
 
   .enhanced-footer-legal-menu {
