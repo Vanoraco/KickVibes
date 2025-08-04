@@ -292,8 +292,8 @@
 @media (max-width: 768px) {
   .promo-section {
     height: auto;
-    min-height: 400px;
-    padding: 1.5rem 0;
+    min-height: 220px;
+    padding: 0.5rem 0;
   }
 
   .promo-section-container {
@@ -352,8 +352,8 @@
   .promo-image {
     transform: translateY(calc((1 - var(--scroll-progress)) * 10px));
     opacity: calc(0.95 + var(--scroll-progress) * 0.05);
-    min-height: 150px;
-    padding-bottom: 20px;
+    min-height: 80px;
+    padding-bottom: 5px;
     order: 2;
     display: flex;
     align-items: center;
@@ -361,14 +361,15 @@
   }
 
   .promo-shoe-container {
-    transform: scale(1.0) rotate(-2deg) translateX(0) translateY(0) translateZ(-10px);
+    transform: scale(3.5) rotate(-45deg) translateX(-30px) translateY(0) translateZ(-10px);
     max-width: 100%;
     height: 100%;
     margin-bottom: 10px;
+    margin-right: 20px;
   }
 
   .promo-shoe-img {
-    min-height: 180px;
+    min-height: 450px;
     height: auto;
     transform: translateZ(5px);
     filter:
@@ -392,8 +393,8 @@
 /* Extra small mobile devices - Compact Side by Side */
 @media (max-width: 480px) {
   .promo-section {
-    min-height: 350px;
-    padding: 1rem 0;
+    min-height: 200px;
+    padding: 0.5rem 0;
   }
 
   .promo-section-container {
@@ -422,17 +423,18 @@
   }
 
   .promo-image {
-    min-height: 120px;
-    padding-bottom: 15px;
+    min-height: 70px;
+    padding-bottom: 5px;
   }
 
   .promo-shoe-container {
-    transform: scale(0.8) rotate(-1deg) translateX(0) translateY(0) translateZ(-5px);
+    transform: scale(3.0) rotate(-45deg) translateX(-25px) translateY(0) translateZ(-5px);
     margin-bottom: 5px;
+    margin-right: 15px;
   }
 
   .promo-shoe-img {
-    min-height: 140px;
+    min-height: 400px;
   }
 
   /* Further reduce background elements on very small screens */

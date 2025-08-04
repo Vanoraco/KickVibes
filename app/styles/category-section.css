@@ -300,22 +300,50 @@
   z-index: 2;
 }
 
-/* Brand Logos */
-.brand-logos {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+/* Brand Logos Carousel */
+.brand-logos-carousel {
   padding: 2rem 0;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(90deg,
+    rgba(248, 250, 252, 0) 0%,
+    rgba(248, 250, 252, 1) 10%,
+    rgba(248, 250, 252, 1) 90%,
+    rgba(248, 250, 252, 0) 100%);
+}
+
+.brand-logos-track {
+  display: flex;
+  align-items: center;
+  animation: slideLogos 20s linear infinite;
+  width: fit-content;
+}
+
+.brand-logos-carousel:hover .brand-logos-track {
+  animation-play-state: paused;
+}
+
+@keyframes slideLogos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .brand-logo {
   opacity: 0.6;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin: 0 4rem;
+  flex-shrink: 0;
+  cursor: pointer;
 }
 
 .brand-logo:hover {
   opacity: 1;
+  transform: scale(1.1);
 }
 
 .brand-name {
@@ -323,6 +351,7 @@
   font-weight: 900;
   letter-spacing: 2px;
   font-style: italic;
+  white-space: nowrap;
 }
 
 .brand-nike { color: #1a1a1a; }
@@ -343,6 +372,14 @@
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .brand-logo {
+    margin: 0 3rem;
+  }
+
+  .brand-name {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -361,6 +398,14 @@
 
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .brand-logo {
+    margin: 0 2.5rem;
+  }
+
+  .brand-name {
+    font-size: 1.2rem;
   }
 }
 
@@ -395,6 +440,19 @@
   .product-price {
     font-size: 1rem;
     margin-bottom: 0.75rem;
+  }
+
+  .brand-logos-track {
+    animation: slideLogos 15s linear infinite;
+  }
+
+  .brand-logo {
+    margin: 0 2rem;
+  }
+
+  .brand-name {
+    font-size: 1rem;
+    letter-spacing: 1px;
   }
 
   .product-select-btn {

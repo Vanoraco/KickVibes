@@ -113,19 +113,35 @@ export function CategorySection() {
         </div>
       </div>
 
-      {/* Brand Logos */}
-      <div className="brand-logos">
-        <div className="brand-logo">
-          <span className="brand-name brand-nike">NIKE</span>
-        </div>
-        <div className="brand-logo">
-          <span className="brand-name brand-sketcha">SKETCHER</span>
-        </div>
-        <div className="brand-logo">
-          <span className="brand-name brand-specha">REEBOK</span>
-        </div>
-        <div className="brand-logo">
-          <span className="brand-name brand-adhida">ADIDAS</span>
+      {/* Brand Logos Carousel */}
+      <div className="brand-logos-carousel">
+        <div className="brand-logos-track">
+          {/* First set of brands */}
+          <div className="brand-logo">
+            <span className="brand-name brand-nike">NIKE</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-sketcha">SKETCHER</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-specha">REEBOK</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-adhida">ADIDAS</span>
+          </div>
+          {/* Duplicate set for seamless loop */}
+          <div className="brand-logo">
+            <span className="brand-name brand-nike">NIKE</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-sketcha">SKETCHER</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-specha">REEBOK</span>
+          </div>
+          <div className="brand-logo">
+            <span className="brand-name brand-adhida">ADIDAS</span>
+          </div>
         </div>
       </div>
       </div>
