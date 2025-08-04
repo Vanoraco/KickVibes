@@ -3,6 +3,7 @@
 @import './category-section.css';
 @import './products-section.css';
 @import './enhanced-all-products.css';
+@import './product-details.css';
 
 :root {
   --aside-width: 400px;

@@ -18,15 +18,15 @@ export function ProductForm({
   const navigate = useNavigate();
   const {open} = useAside();
   return (
-    <div className="product-form">
+    <div className="enhanced-product-form">
       {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
 
         return (
-          <div className="product-options" key={option.name}>
-            <h5>{option.name}</h5>
-            <div className="product-options-grid">
+          <div className="enhanced-product-option-group" key={option.name}>
+            <label className="enhanced-product-option-label">{option.name}</label>
+            <div className="enhanced-product-options-grid">
               {option.optionValues.map((value) => {
                 const {
                   name,
@@ -46,17 +46,14 @@ export function ProductForm({
                   // as an anchor tag
                   return (
                     <Link
-                      className="product-options-item"
+                      className={`enhanced-product-option-item ${selected ? 'selected' : ''}`}
                       key={option.name + name}
                       prefetch="intent"
                       preventScrollReset
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
                       style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
+                        opacity: available ? 1 : 0.4,
                       }}
                     >
                       <ProductOptionSwatch swatch={swatch} name={name} />
@@ -71,15 +68,12 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
+                      className={`enhanced-product-option-item ${selected ? 'selected' : ''} ${
                         exists && !selected ? ' link' : ''
                       }`}
                       key={option.name + name}
                       style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
-                        opacity: available ? 1 : 0.3,
+                        opacity: available ? 1 : 0.4,
                       }}
                       disabled={!exists}
                       onClick={() => {
@@ -97,29 +91,32 @@ export function ProductForm({
                 }
               })}
             </div>
-            <br />
           </div>
         );
       })}
-      <AddToCartButton
-        disabled={!selectedVariant || !selectedVariant.availableForSale}
-        onClick={() => {
-          open('cart');
-        }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  selectedVariant,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+
+      <div className="enhanced-product-actions">
+        <AddToCartButton
+          disabled={!selectedVariant || !selectedVariant.availableForSale}
+          onClick={() => {
+            open('cart');
+          }}
+          lines={
+            selectedVariant
+              ? [
+                  {
+                    merchandiseId: selectedVariant.id,
+                    quantity: 1,
+                    selectedVariant,
+                  },
+                ]
+              : []
+          }
+
+        >
+          {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        </AddToCartButton>
+      </div>
     </div>
   );
 }
@@ -139,7 +136,7 @@ function ProductOptionSwatch({
   return (
     <div
       aria-label={name}
-      className="product-option-label-swatch"
+      className="enhanced-product-option-swatch"
       style={{
         backgroundColor: color || 'transparent',
       }}

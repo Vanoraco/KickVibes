@@ -11,6 +11,8 @@ import {
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
+import {Breadcrumb, generateProductBreadcrumbs} from '~/components/Breadcrumb';
+import {RelatedProducts, generateMockRelatedProducts} from '~/components/RelatedProducts';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
 export const meta: MetaFunction<typeof loader> = ({data}) => {
@@ -100,30 +102,98 @@ export default function Product() {
   });
 
   const {title, descriptionHtml} = product;
+  const breadcrumbItems = generateProductBreadcrumbs(title, product.handle);
 
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
-      </div>
+    <div className="enhanced-product-details">
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="skip-to-content">
+        Skip to main content
+      </a>
+
+      {/* Breadcrumb Navigation */}
+      <Breadcrumb items={breadcrumbItems} />
+
+      <main id="main-content" className="enhanced-product">
+        {/* Enhanced Product Image Section */}
+        <section
+          className="enhanced-product-image-section"
+          aria-label="Product images"
+        >
+          <ProductImage image={selectedVariant?.image} />
+        </section>
+
+        {/* Enhanced Product Information Section */}
+        <section
+          className="enhanced-product-info"
+          aria-label="Product information"
+        >
+          {/* Brand and Title */}
+          <div className="enhanced-product-brand" aria-label="Brand">
+            {product.vendor || 'Premium Brand'}
+          </div>
+          <h1 className="enhanced-product-title">{title}</h1>
+
+          {/* Enhanced Price Section */}
+          <div className="enhanced-product-price-section" aria-label="Product pricing">
+            <ProductPrice
+              price={selectedVariant?.price}
+              compareAtPrice={selectedVariant?.compareAtPrice}
+            />
+          </div>
+
+          {/* Product Form with Enhanced Styling */}
+          <div className="enhanced-product-options" aria-label="Product options and purchase">
+            <ProductForm
+              productOptions={productOptions}
+              selectedVariant={selectedVariant}
+            />
+          </div>
+
+          {/* Enhanced Description */}
+          <div className="enhanced-product-description">
+            <h2 className="enhanced-product-description-title">Description</h2>
+            <div
+              className="enhanced-product-description-content"
+              dangerouslySetInnerHTML={{__html: descriptionHtml}}
+              aria-label="Product description"
+            />
+          </div>
+
+          {/* Product Specifications */}
+          <div className="enhanced-product-specs">
+            <h2 className="enhanced-product-specs-title">Specifications</h2>
+            <dl className="enhanced-product-specs-grid" aria-label="Product specifications">
+              <div className="enhanced-product-spec-item">
+                <dt className="enhanced-product-spec-label">Brand</dt>
+                <dd className="enhanced-product-spec-value">{product.vendor || 'Premium Brand'}</dd>
+              </div>
+              <div className="enhanced-product-spec-item">
+                <dt className="enhanced-product-spec-label">SKU</dt>
+                <dd className="enhanced-product-spec-value">{selectedVariant?.sku || 'N/A'}</dd>
+              </div>
+              <div className="enhanced-product-spec-item">
+                <dt className="enhanced-product-spec-label">Availability</dt>
+                <dd className="enhanced-product-spec-value">
+                  <span
+                    className={selectedVariant?.availableForSale ? 'in-stock' : 'out-of-stock'}
+                    aria-label={selectedVariant?.availableForSale ? 'Product is in stock' : 'Product is out of stock'}
+                  >
+                    {selectedVariant?.availableForSale ? 'In Stock' : 'Out of Stock'}
+                  </span>
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </main>
+
+      {/* Related Products Section */}
+      <RelatedProducts
+        products={generateMockRelatedProducts(4)}
+        title="You might also like"
+      />
+
       <Analytics.ProductView
         data={{
           products: [
