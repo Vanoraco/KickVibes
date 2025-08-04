@@ -66,6 +66,20 @@ aside {
   transition: transform 200ms ease-in-out;
 }
 
+/* Mobile menu specific height adjustment */
+.overlay[aria-modal] aside {
+  height: auto;
+  min-height: auto;
+  max-height: calc(100vh - 100px);
+  top: 70px;
+  right: -300px;
+  left: auto;
+  transform: translateX(0);
+  border-radius: 16px;
+  width: 280px;
+  transition: right 300ms ease-in-out;
+}
+
 aside header {
   align-items: center;
   border-bottom: 1px solid var(--color-dark);
@@ -112,6 +126,36 @@ aside li {
   margin-bottom: 0.125rem;
 }
 
+/* KickVibes Mobile Menu Styling */
+.overlay[aria-modal] aside {
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(147, 51, 234, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #2d1b69 50%, #1e3a8a 75%, #0f172a 100%);
+  animation: backgroundPulse 8s ease-in-out infinite;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  overflow: visible;
+}
+
+.overlay[aria-modal] aside header {
+  display: none;
+}
+
+.overlay[aria-modal] aside main {
+  background: transparent;
+  padding: 1.5rem;
+  margin: 0;
+  overflow: visible;
+  height: auto;
+}
+
+.overlay[aria-modal] aside > * {
+  height: auto;
+  overflow: visible;
+}
+
 .overlay {
   background: rgba(0, 0, 0, 0.2);
   bottom: 0;
@@ -125,6 +169,12 @@ aside li {
   transition: opacity 400ms;
   visibility: hidden;
   z-index: 10;
+}
+
+/* Enhanced overlay for mobile menu */
+.overlay[aria-modal] {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
 }
 
 .overlay .close-outside {
@@ -159,6 +209,12 @@ aside li {
   transform: translateX(calc(var(--aside-width) * -1));
 }
 
+/* Mobile menu specific reveal animation */
+.overlay.expanded[aria-modal] aside {
+  right: 20px;
+  transform: translateX(0) !important;
+}
+
 button.reset {
   border: 0;
   background: inherit;
@@ -181,7 +237,7 @@ button.reset:hover:not(:has(> *)) {
 
 /*
 * --------------------------------------------------
-* components/Header - KickVibes Design
+* components/Header - KickVibes Design (Mobile First)
 * --------------------------------------------------
 */
 .kickvibes-header {
@@ -211,14 +267,15 @@ button.reset:hover:not(:has(> *)) {
   transform: translateY(0);
 }
 
+/* Mobile First Header Container */
 .kickvibes-header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
-  height: 90px;
+  padding: 0 1rem;
+  height: 70px;
   transition: all 0.3s ease;
 }
 
@@ -226,12 +283,26 @@ button.reset:hover:not(:has(> *)) {
   display: flex;
   align-items: center;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .kickvibes-logo-img {
-  height: 90px;
+  height: 60px;
   width: auto;
   transition: all 0.3s ease;
+}
+
+/* Tablet and Desktop Header Adjustments */
+@media (min-width: 768px) {
+  .kickvibes-header-container {
+    max-width: 1200px;
+    padding: 0 2rem;
+    height: 90px;
+  }
+
+  .kickvibes-logo-img {
+    height: 90px;
+  }
 }
 
 /* Desktop Navigation */
@@ -286,29 +357,92 @@ button.reset:hover:not(:has(> *)) {
   box-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
 }
 
+/* Prevent flickering by being more specific */
+.kickvibes-header-menu-desktop .kickvibes-nav-item.active::after {
+  display: block;
+}
+
+.kickvibes-header-menu-mobile .kickvibes-nav-item.active::before {
+  opacity: 1;
+}
+
 /* Mobile Navigation */
 .kickvibes-header-menu-mobile {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 1rem 0;
+  gap: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .kickvibes-header-menu-mobile .kickvibes-nav-item {
   font-size: 16px;
-  padding: 0.5rem 0;
+  font-weight: 600;
+  padding: 1rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 1px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Header Actions */
+.kickvibes-header-menu-mobile .kickvibes-nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #e2e8f0;
+  transform: translateX(5px);
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.kickvibes-header-menu-mobile .kickvibes-nav-item.active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(147, 51, 234, 0.2)) !important;
+  color: #ffffff !important;
+  border-color: rgba(59, 130, 246, 0.6) !important;
+  box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    0 0 25px rgba(59, 130, 246, 0.4) !important;
+  transform: none !important;
+}
+
+.kickvibes-header-menu-mobile .kickvibes-nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0 4px 4px 0;
+}
+
+.kickvibes-header-menu-mobile .kickvibes-nav-item:hover::before,
+.kickvibes-header-menu-mobile .kickvibes-nav-item.active::before {
+  opacity: 1;
+}
+
+/* Header Actions (Mobile First) */
 .kickvibes-header-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
+/* Mobile toggle - visible by default */
 .kickvibes-mobile-toggle {
   display: flex;
   align-items: center;
@@ -316,23 +450,33 @@ button.reset:hover:not(:has(> *)) {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
   color: #ffffff;
   transition: all 0.3s ease;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-@media (min-width: 768px) {
-  .kickvibes-mobile-toggle {
-    display: none;
-  }
+  font-size: 18px;
+  border-radius: 8px;
 }
 
 .kickvibes-mobile-toggle:hover {
   color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
   filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
 }
 
+/* Active state when menu is open */
+.kickvibes-mobile-toggle[aria-label*="Close"] {
+  background: rgba(255, 255, 255, 0.15);
+  color: #3b82f6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
+.kickvibes-mobile-toggle[aria-label*="Close"]:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #60a5fa;
+}
+
+/* Search and Cart toggles */
 .kickvibes-search-toggle,
 .kickvibes-cart-toggle {
   display: flex;
@@ -341,17 +485,37 @@ button.reset:hover:not(:has(> *)) {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.75rem;
   color: #ffffff;
   transition: all 0.3s ease;
   position: relative;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  border-radius: 8px;
 }
 
 .kickvibes-search-toggle:hover,
 .kickvibes-cart-toggle:hover {
   color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
   filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  .kickvibes-header-actions {
+    gap: 1rem;
+  }
+
+  .kickvibes-mobile-toggle {
+    display: none;
+  }
+
+  .kickvibes-search-toggle,
+  .kickvibes-cart-toggle {
+    padding: 0.5rem;
+    font-size: 18px;
+  }
 }
 
 .kickvibes-cart-count {
@@ -374,17 +538,7 @@ button.reset:hover:not(:has(> *)) {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Responsive adjustments */
-@media (max-width: 767px) {
-  .kickvibes-header-container {
-    padding: 0 1rem;
-    height: 70px;
-  }
 
-  .kickvibes-logo-img {
-    height: 45px;
-  }
-}
 
 /*
 * --------------------------------------------------
@@ -402,6 +556,7 @@ button.reset:hover:not(:has(> *)) {
   box-sizing: border-box;
 }
 
+/* Mobile First Hero */
 .kickvibes-hero {
   background:
     radial-gradient(ellipse at 30% 20%, rgba(59, 130, 246, 0.4) 0%, transparent 50%),
@@ -409,7 +564,8 @@ button.reset:hover:not(:has(> *)) {
     radial-gradient(ellipse at 20% 70%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
     radial-gradient(ellipse at 80% 30%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
     linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #2d1b69 50%, #1e3a8a 75%, #0f172a 100%);
-  min-height: calc(100vh - 90px);
+  min-height: 60vh;
+  margin-top: 70px;
   position: relative;
   overflow: hidden;
   display: flex;
@@ -425,13 +581,29 @@ button.reset:hover:not(:has(> *)) {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  padding: 4rem 5%;
+  padding: 1rem 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   align-items: center;
   position: relative;
   z-index: 10;
+  text-align: center;
+}
+
+/* Desktop Hero Adjustments */
+@media (min-width: 768px) {
+  .kickvibes-hero {
+    min-height: calc(100vh - 90px);
+    margin-top: 0;
+  }
+
+  .kickvibes-hero-container {
+    padding: 4rem 5%;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2rem;
+    text-align: left;
+  }
 }
 
 .kickvibes-hero-bg {
@@ -604,7 +776,7 @@ button.reset:hover:not(:has(> *)) {
   filter: blur(25px);
 }
 
-/* Hero Content */
+/* Hero Content (Mobile First) */
 .kickvibes-hero-content {
   color: white;
   z-index: 10;
@@ -618,27 +790,28 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   gap: 0.5rem;
   background: rgba(255, 255, 255, 0.25);
-  padding: 0.75rem 1.5rem;
-  border-radius: 30px;
-  font-size: 11px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .kickvibes-badge-icon {
-  font-size: 16px;
+  font-size: 14px;
 }
 
+/* Mobile First Typography */
 .kickvibes-hero-title {
-  font-size: 5.5rem;
+  font-size: 3.5rem;
   font-weight: 800;
   margin: 0 0 0.5rem 0;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   line-height: 0.9;
   background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #ffffff 100%);
   -webkit-background-clip: text;
@@ -652,29 +825,68 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .kickvibes-hero-subtitle {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   opacity: 0.9;
   color: #e2e8f0;
 }
 
 .kickvibes-hero-description {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  margin-bottom: 2.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
   opacity: 0.8;
-  max-width: 450px;
+  max-width: 100%;
   color: #cbd5e1;
   font-weight: 400;
 }
 
+/* Desktop Hero Content Adjustments */
+@media (min-width: 768px) {
+  .kickvibes-hero-badge {
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    font-size: 11px;
+    margin-bottom: 2rem;
+  }
+
+  .kickvibes-badge-icon {
+    font-size: 16px;
+  }
+
+  .kickvibes-hero-title {
+    font-size: 5.5rem;
+    letter-spacing: 3px;
+  }
+
+  .kickvibes-hero-subtitle {
+    font-size: 1.8rem;
+    letter-spacing: 1.5px;
+    margin: 0 0 2rem 0;
+  }
+
+  .kickvibes-hero-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 450px;
+  }
+}
+
+/* Hide thumbnails on mobile, show on desktop */
 .kickvibes-hero-thumbnails {
-  display: flex;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .kickvibes-hero-thumbnails {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
 }
 
 .kickvibes-thumbnail {
@@ -704,7 +916,7 @@ button.reset:hover:not(:has(> *)) {
   display: inline-block;
   background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
   color: #1e293b;
-  padding: 1rem 2.5rem;
+  padding: 1.25rem 2rem;
   border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
@@ -719,6 +931,16 @@ button.reset:hover:not(:has(> *)) {
   border: 1px solid rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
+  min-width: 160px;
+  text-align: center;
+}
+
+/* Desktop shop button adjustments */
+@media (min-width: 768px) {
+  .kickvibes-shop-button {
+    padding: 1rem 2.5rem;
+    min-width: auto;
+  }
 }
 
 .kickvibes-shop-button::before {
@@ -745,34 +967,56 @@ button.reset:hover:not(:has(> *)) {
   left: 100%;
 }
 
-/* Hero Image */
+/* Hero Image (Mobile First) */
 .kickvibes-hero-image {
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   z-index: 5;
-  padding-top: 4rem;
-  padding-bottom: 3rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .kickvibes-main-shoe {
   position: relative;
   z-index: 3;
-  transform: scale(1.8) translateY(-60px);
-  animation: slideInFromRight 1.2s ease-out;
+  transform: scale(1.2) translateY(-20px);
+  animation: slideInFromRightMobile 1.2s ease-out;
 }
 
 .kickvibes-shoe-image {
   max-width: 100%;
   height: auto;
-  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.4));
   transform: rotate(-20deg);
   transition: transform 0.4s ease;
 }
 
 .kickvibes-shoe-image:hover {
-  transform: rotate(-15deg) scale(1.1);
+  transform: rotate(-15deg) scale(1.05);
+}
+
+/* Desktop Hero Image Adjustments */
+@media (min-width: 768px) {
+  .kickvibes-hero-image {
+    align-items: flex-start;
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+  }
+
+  .kickvibes-main-shoe {
+    transform: scale(1.8) translateY(-60px);
+    animation: slideInFromRight 1.2s ease-out;
+  }
+
+  .kickvibes-shoe-image {
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.5));
+  }
+
+  .kickvibes-shoe-image:hover {
+    transform: rotate(-15deg) scale(1.1);
+  }
 }
 
 /* Slide in animation from right */
@@ -783,6 +1027,18 @@ button.reset:hover:not(:has(> *)) {
   }
   100% {
     transform: scale(1.8) translateY(-60px) translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile slide in animation */
+@keyframes slideInFromRightMobile {
+  0% {
+    transform: scale(1.2) translateY(-20px) translateX(60px);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2) translateY(-20px) translateX(0);
     opacity: 1;
   }
 }
@@ -866,59 +1122,11 @@ button.reset:hover:not(:has(> *)) {
   }
 }
 
-/* Responsive Hero */
+/* Mobile Background Elements Adjustments */
 @media (max-width: 768px) {
-  .kickvibes-hero {
-    min-height: calc(100vh - 70px);
-  }
-
-  .kickvibes-hero-container {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    text-align: center;
-    padding: 2rem 1.5rem;
-    width: 100%;
-  }
-
-  .kickvibes-hero-title {
-    font-size: 3.5rem;
-    letter-spacing: 2px;
-  }
-
-  .kickvibes-hero-subtitle {
-    font-size: 1.4rem;
-  }
-
-  .kickvibes-hero-description {
-    max-width: 100%;
-  }
-
-  .kickvibes-main-shoe {
-    transform: scale(1.4) translateY(-40px);
-    animation: slideInFromRightMobile 1.2s ease-out;
-  }
-
-  .kickvibes-hero-image {
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-  }
-
-  /* Hide some background elements on mobile */
   .kickvibes-bg-circle-yellow,
   .kickvibes-bg-circle-red {
     opacity: 0.3;
-  }
-
-  /* Mobile slide in animation */
-  @keyframes slideInFromRightMobile {
-    0% {
-      transform: scale(1.4) translateY(-40px) translateX(80px);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1.4) translateY(-40px) translateX(0);
-      opacity: 1;
-    }
   }
 }
 

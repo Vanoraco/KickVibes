@@ -10,61 +10,76 @@
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   background:
-    radial-gradient(ellipse at 20% 30%, rgba(59, 130, 246, 0.3) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 70%, rgba(147, 51, 234, 0.2) 0%, transparent 50%),
-    linear-gradient(135deg, #1a1a2e 0%, #2d1b69 25%, #1e3a8a 50%, #0f172a 75%, #0a0a0f 100%);
+    radial-gradient(ellipse at 25% 25%, rgba(59, 130, 246, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse at 75% 75%, rgba(147, 51, 234, 0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 0%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f23 0%, #1a1a2e 20%, #2d1b69 40%, #1e3a8a 60%, #0f172a 80%, #0a0a0f 100%);
   color: white;
   overflow: hidden;
-  height: 500px;
+  height: 600px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  /* Enhanced backdrop for better depth */
+  backdrop-filter: blur(1px);
 }
 
 .promo-section-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 1rem 0 5rem;
+  padding: 0 2rem 0 6rem;
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  grid-template-columns: 1.3fr 0.7fr;
   align-items: center;
-  gap: 0.5rem;
+  gap: 2rem;
   position: relative;
   z-index: 2;
   --scroll-progress: 0;
+  /* Enhanced container for better visual balance */
+  min-height: 100%;
 }
 
 .promo-content {
-  max-width: 500px;
+  max-width: 550px;
   transform: scale(calc(1 - var(--scroll-progress) * 0.1)) translateX(calc(var(--scroll-progress) * -20px));
   opacity: calc(1 - var(--scroll-progress) * 0.3);
   transition: transform 0.1s ease-out, opacity 0.1s ease-out;
-  padding: 1rem 0;
+  padding: 2rem 0;
+  /* Enhanced content spacing for better readability */
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .promo-title {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
   font-weight: 900;
-  line-height: 1.2;
-  margin-bottom: 2rem;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.5px;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 30%, #e2e8f0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  word-spacing: 0.2em;
+  word-spacing: 0.15em;
+  /* Enhanced typography for better impact */
+  font-family: system-ui, -apple-system, sans-serif;
+  position: relative;
 }
 
 .promo-description {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  margin-bottom: 3rem;
-  opacity: 0.9;
-  color: #e2e8f0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  max-width: 450px;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  opacity: 0.92;
+  color: #f1f5f9;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  max-width: 480px;
   font-weight: 400;
+  /* Enhanced readability and contrast */
+  letter-spacing: 0.3px;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
 .promo-button {
@@ -273,58 +288,158 @@
   }
 }
 
+/* Mobile First Responsive Design - Side by Side Layout */
 @media (max-width: 768px) {
   .promo-section {
-    height: 550px;
+    height: auto;
+    min-height: 400px;
+    padding: 1.5rem 0;
   }
 
   .promo-section-container {
-    grid-template-columns: 1fr;
-    padding: 0 2rem;
-    gap: 0.5rem;
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 1rem;
+    gap: 1rem;
+    text-align: left;
+    max-width: 100%;
+    align-items: center;
   }
 
   .promo-content {
-    transform: scale(calc(1 - var(--scroll-progress) * 0.03)) translateY(calc(var(--scroll-progress) * -5px));
-  }
-
-  .promo-image {
-    transform: translateY(calc((1 - var(--scroll-progress)) * 20px));
-    opacity: calc(0.95 + var(--scroll-progress) * 0.05);
-    min-height: 250px;
+    transform: scale(calc(1 - var(--scroll-progress) * 0.02)) translateY(calc(var(--scroll-progress) * -3px));
+    max-width: 100%;
+    padding: 0;
+    order: 1;
   }
 
   .promo-title {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.3px;
+    word-spacing: 0.05em;
   }
 
   .promo-description {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+    max-width: 100%;
+    opacity: 0.9;
   }
 
   .promo-button {
-    padding: 0.875rem 2rem;
-    font-size: 0.85rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    min-width: 120px;
+    border-radius: 8px;
+    /* Enhanced mobile touch target */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .promo-button:hover {
+    transform: translateY(-1px) scale(1.01);
+  }
+
+  .promo-button:active {
+    transform: translateY(0) scale(0.99);
+  }
+
+  .promo-image {
+    transform: translateY(calc((1 - var(--scroll-progress)) * 10px));
+    opacity: calc(0.95 + var(--scroll-progress) * 0.05);
+    min-height: 150px;
+    padding-bottom: 20px;
+    order: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .promo-shoe-container {
-    transform: scale(1.7) rotate(-4deg) translateX(0) translateY(-15px) translateZ(-20px);
+    transform: scale(1.0) rotate(-2deg) translateX(0) translateY(0) translateZ(-10px);
     max-width: 100%;
     height: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .promo-shoe-img {
-    min-height: 300px;
-    transform: translateZ(15px);
+    min-height: 180px;
+    height: auto;
+    transform: translateZ(5px);
+    filter:
+      drop-shadow(0 15px 30px rgba(0, 0, 0, 0.5))
+      drop-shadow(0 8px 20px rgba(0, 0, 0, 0.3))
+      drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
   }
 
-  /* Hide some background elements on mobile */
+  /* Optimize background elements for mobile */
   .promo-bg-circle-1,
   .promo-bg-shape-1 {
-    opacity: 0.5;
+    opacity: 0.3;
+  }
+
+  .promo-bg-circle-2,
+  .promo-bg-shape-2 {
+    opacity: 0.4;
+  }
+}
+
+/* Extra small mobile devices - Compact Side by Side */
+@media (max-width: 480px) {
+  .promo-section {
+    min-height: 350px;
+    padding: 1rem 0;
+  }
+
+  .promo-section-container {
+    padding: 0 0.75rem;
+    gap: 0.75rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .promo-title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+  }
+
+  .promo-description {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+
+  .promo-button {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.65rem;
+    min-width: 100px;
+    min-height: 40px;
+  }
+
+  .promo-image {
+    min-height: 120px;
+    padding-bottom: 15px;
+  }
+
+  .promo-shoe-container {
+    transform: scale(0.8) rotate(-1deg) translateX(0) translateY(0) translateZ(-5px);
+    margin-bottom: 5px;
+  }
+
+  .promo-shoe-img {
+    min-height: 140px;
+  }
+
+  /* Further reduce background elements on very small screens */
+  .promo-bg-circle-1,
+  .promo-bg-shape-1,
+  .promo-bg-circle-2,
+  .promo-bg-shape-2 {
+    opacity: 0.2;
   }
 }
