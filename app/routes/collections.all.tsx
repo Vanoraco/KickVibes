@@ -1,8 +1,7 @@
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData, type MetaFunction} from 'react-router';
-import {getPaginationVariables, Image, Money} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-import {ProductItem} from '~/components/ProductItem';
+import {getPaginationVariables} from '@shopify/hydrogen';
+import {EnhancedAllProductsPage} from '~/components/EnhancedAllProductsPage';
 
 export const meta: MetaFunction<typeof loader> = () => {
   return [{title: `KickVibes | All Products`}];
@@ -49,43 +48,7 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Collection() {
   const {products} = useLoaderData<typeof loader>();
 
-  return (
-    <div className="enhanced-all-products">
-      {/* Hero Section */}
-      <div className="products-hero">
-        <div className="products-hero-content">
-          <h1 className="products-hero-title">All Products</h1>
-          <p className="products-hero-subtitle">
-            Discover our complete collection of premium sneakers
-          </p>
-        </div>
-      </div>
-
-      {/* Results Section */}
-      <div className="products-results">
-        <div className="products-results-container">
-          <div className="products-results-header">
-            <span className="products-count">
-              {products?.nodes?.length || 0} products found
-            </span>
-          </div>
-
-          <PaginatedResourceSection
-            connection={products}
-            resourcesClassName="products-grid"
-          >
-            {({node: product, index}) => (
-              <ProductItem
-                key={product.id}
-                product={product}
-                loading={index < 8 ? 'eager' : undefined}
-              />
-            )}
-          </PaginatedResourceSection>
-        </div>
-      </div>
-    </div>
-  );
+  return <EnhancedAllProductsPage products={products} />;
 }
 
 const COLLECTION_ITEM_FRAGMENT = `#graphql
@@ -97,6 +60,8 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    vendor
+    availableForSale
     featuredImage {
       id
       altText

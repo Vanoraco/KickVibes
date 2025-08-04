@@ -16,6 +16,8 @@ export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [availabilityFilter, setAvailabilityFilter] = useState<'all' | 'in-stock' | 'on-sale'>('all');
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 
   // Extract unique brands from products for filtering
   const availableBrands = useMemo(() => {
@@ -32,19 +34,19 @@ export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
     if (!products?.nodes) return [];
-    
+
     let filtered = products.nodes.filter((product: any) => {
       // Search filter
       if (searchTerm && !product.title.toLowerCase().includes(searchTerm.toLowerCase())) {
         return false;
       }
-      
+
       // Price filter
       const price = parseFloat(product.priceRange.minVariantPrice.amount);
       if (price < priceRange[0] || price > priceRange[1]) {
         return false;
       }
-      
+
       // Brand filter
       if (selectedBrands.length > 0) {
         const brand = product.vendor || product.title.split(' ')[0];
@@ -52,7 +54,20 @@ export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps
           return false;
         }
       }
-      
+
+      // Availability filter
+      if (availabilityFilter === 'in-stock' && !product.availableForSale) {
+        return false;
+      }
+
+      if (availabilityFilter === 'on-sale') {
+        const minPrice = parseFloat(product.priceRange.minVariantPrice.amount);
+        const maxPrice = parseFloat(product.priceRange.maxVariantPrice.amount);
+        if (minPrice >= maxPrice) {
+          return false;
+        }
+      }
+
       return true;
     });
 
@@ -80,7 +95,7 @@ export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps
     }
 
     return filtered;
-  }, [products, searchTerm, sortBy, priceRange, selectedBrands]);
+  }, [products, searchTerm, sortBy, priceRange, selectedBrands, availabilityFilter, selectedSizes]);
 
   return (
     <div className="enhanced-all-products">
@@ -94,66 +109,85 @@ export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps
         </div>
       </div>
 
-      {/* Controls Section */}
-      <div className="products-controls">
-        <div className="products-controls-container">
-          <div className="products-controls-left">
-            <ProductSearch 
-              searchTerm={searchTerm} 
-              onSearchChange={setSearchTerm} 
-            />
-            <ProductFilters
-              priceRange={priceRange}
-              onPriceRangeChange={setPriceRange}
-              availableBrands={availableBrands}
-              selectedBrands={selectedBrands}
-              onBrandsChange={setSelectedBrands}
-            />
-          </div>
-          <div className="products-controls-right">
-            <ProductSort sortBy={sortBy} onSortChange={setSortBy} />
-            <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
-          </div>
-        </div>
-      </div>
+      {/* Main Content with Sidebar Layout */}
+      <div className="products-main-content">
+        <div className="products-main-container">
 
-      {/* Results Section */}
-      <div className="products-results">
-        <div className="products-results-container">
-          <div className="products-results-header">
-            <span className="products-count">
-              {filteredAndSortedProducts.length} products found
-            </span>
-          </div>
+          {/* Left Sidebar - Filters */}
+          <aside className="products-sidebar">
+            <div className="products-sidebar-content">
+              <ProductSearch
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+              />
 
-          {/* Products Grid */}
-          <Pagination connection={{
-            ...products,
-            nodes: filteredAndSortedProducts
-          }}>
-            {({nodes, isLoading, PreviousLink, NextLink}) => (
-              <div>
-                <PreviousLink className="pagination-link pagination-previous">
-                  {isLoading ? 'Loading...' : '← Previous'}
-                </PreviousLink>
-                
-                <div className={`products-grid ${viewMode === 'list' ? 'products-list' : ''}`}>
-                  {nodes.map((product: any, index: number) => (
-                    <EnhancedProductCard
-                      key={product.id}
-                      product={product}
-                      loading={index < 8 ? 'eager' : 'lazy'}
-                      viewMode={viewMode}
-                    />
-                  ))}
-                </div>
-
-                <NextLink className="pagination-link pagination-next">
-                  {isLoading ? 'Loading...' : 'Next →'}
-                </NextLink>
+              {/* Results Info */}
+              <div className="sidebar-results-info">
+                <span className="products-count">
+                  {filteredAndSortedProducts.length} products found
+                </span>
               </div>
-            )}
-          </Pagination>
+
+              {/* Sort Controls */}
+              <div className="sidebar-sort-section">
+                <h4 className="filter-title">Sort By</h4>
+                <ProductSort sortBy={sortBy} onSortChange={setSortBy} />
+              </div>
+
+              <ProductFilters
+                priceRange={priceRange}
+                onPriceRangeChange={setPriceRange}
+                availableBrands={availableBrands}
+                selectedBrands={selectedBrands}
+                onBrandsChange={setSelectedBrands}
+                availabilityFilter={availabilityFilter}
+                onAvailabilityChange={setAvailabilityFilter}
+                selectedSizes={selectedSizes}
+                onSizesChange={setSelectedSizes}
+              />
+            </div>
+          </aside>
+
+          {/* Right Content - Products */}
+          <main className="products-content">
+            {/* Top Controls - Only View Toggle */}
+            <div className="products-content-header">
+              <div className="products-content-controls">
+                <ViewToggle viewMode={viewMode} onViewModeChange={setViewMode} />
+              </div>
+            </div>
+
+            {/* Products Grid */}
+            <div className="products-results">
+              <Pagination connection={{
+                ...products,
+                nodes: filteredAndSortedProducts
+              }}>
+                {({nodes, isLoading, PreviousLink, NextLink}) => (
+                  <div>
+                    <PreviousLink className="pagination-link pagination-previous">
+                      {isLoading ? 'Loading...' : '← Previous'}
+                    </PreviousLink>
+
+                    <div className={`products-grid ${viewMode === 'list' ? 'products-list' : ''}`}>
+                      {nodes.map((product: any, index: number) => (
+                        <EnhancedProductCard
+                          key={product.id}
+                          product={product}
+                          loading={index < 8 ? 'eager' : 'lazy'}
+                          viewMode={viewMode}
+                        />
+                      ))}
+                    </div>
+
+                    <NextLink className="pagination-link pagination-next">
+                      {isLoading ? 'Loading...' : 'Next →'}
+                    </NextLink>
+                  </div>
+                )}
+              </Pagination>
+            </div>
+          </main>
         </div>
       </div>
     </div>
