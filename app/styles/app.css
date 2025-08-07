@@ -4,6 +4,7 @@
 @import './products-section.css';
 @import './enhanced-all-products.css';
 @import './product-details.css';
+@import './enhanced-search.css';
 
 :root {
   --aside-width: 400px;

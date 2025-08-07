@@ -14,9 +14,6 @@ export function ProductSort({sortBy, onSortChange}: ProductSortProps) {
 
   return (
     <div className="product-sort">
-      <label htmlFor="sort-select" className="sort-label">
-        Sort by:
-      </label>
       <select
         id="sort-select"
         value={sortBy}

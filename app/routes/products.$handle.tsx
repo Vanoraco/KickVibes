@@ -10,6 +10,7 @@ import {
 } from '@shopify/hydrogen';
 import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
+import {ProductImageGallery} from '~/components/ProductImageGallery';
 import {ProductForm} from '~/components/ProductForm';
 import {Breadcrumb, generateProductBreadcrumbs} from '~/components/Breadcrumb';
 import {RelatedProducts, generateMockRelatedProducts} from '~/components/RelatedProducts';
@@ -32,7 +33,10 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  // Fetch related products based on the current product's type
+  const relatedProducts = await loadRelatedProducts(args, criticalData.product?.productType);
+
+  return {...deferredData, ...criticalData, relatedProducts};
 }
 
 /**
@@ -82,8 +86,34 @@ function loadDeferredData({context, params}: LoaderFunctionArgs) {
   return {};
 }
 
+/**
+ * Load related products based on the current product's type/brand
+ */
+async function loadRelatedProducts(
+  {context, params}: LoaderFunctionArgs,
+  productType?: string
+) {
+  if (!productType) {
+    return null;
+  }
+
+  try {
+    const relatedProducts = await context.storefront.query(RELATED_PRODUCTS_QUERY, {
+      variables: {
+        productType: productType,
+        first: 8, // Fetch more to account for filtering out current product
+      },
+    });
+
+    return relatedProducts;
+  } catch (error) {
+    console.error('Error fetching related products:', error);
+    return null;
+  }
+}
+
 export default function Product() {
-  const {product} = useLoaderData<typeof loader>();
+  const {product, relatedProducts} = useLoaderData<typeof loader>();
 
   // Optimistically selects a variant with given available variant information
   const selectedVariant = useOptimisticVariant(
@@ -120,7 +150,10 @@ export default function Product() {
           className="enhanced-product-image-section"
           aria-label="Product images"
         >
-          <ProductImage image={selectedVariant?.image} />
+          <ProductImageGallery
+            images={product.images?.nodes || []}
+            productTitle={product.title}
+          />
         </section>
 
         {/* Enhanced Product Information Section */}
@@ -130,7 +163,7 @@ export default function Product() {
         >
           {/* Brand and Title */}
           <div className="enhanced-product-brand" aria-label="Brand">
-            {product.vendor || 'Premium Brand'}
+            {product.productType || product.vendor || 'Premium Brand'}
           </div>
           <h1 className="enhanced-product-title">{title}</h1>
 
@@ -166,7 +199,7 @@ export default function Product() {
             <dl className="enhanced-product-specs-grid" aria-label="Product specifications">
               <div className="enhanced-product-spec-item">
                 <dt className="enhanced-product-spec-label">Brand</dt>
-                <dd className="enhanced-product-spec-value">{product.vendor || 'Premium Brand'}</dd>
+                <dd className="enhanced-product-spec-value">{product.productType || product.vendor || 'Premium Brand'}</dd>
               </div>
               <div className="enhanced-product-spec-item">
                 <dt className="enhanced-product-spec-label">SKU</dt>
@@ -190,8 +223,12 @@ export default function Product() {
 
       {/* Related Products Section */}
       <RelatedProducts
-        products={generateMockRelatedProducts(4)}
-        title="You might also like"
+        products={
+          (relatedProducts?.products?.nodes || [])
+            .filter(relatedProduct => relatedProduct.handle !== product.handle)
+            .slice(0, 4)
+        }
+        title={`More ${product.productType || 'products'} you might like`}
       />
 
       <Analytics.ProductView
@@ -255,11 +292,21 @@ const PRODUCT_FRAGMENT = `#graphql
     id
     title
     vendor
+    productType
     handle
     descriptionHtml
     description
     encodedVariantExistence
     encodedVariantAvailability
+    images(first: 10) {
+      nodes {
+        id
+        url
+        altText
+        width
+        height
+      }
+    }
     options {
       name
       optionValues {
@@ -303,4 +350,44 @@ const PRODUCT_QUERY = `#graphql
     }
   }
   ${PRODUCT_FRAGMENT}
+` as const;
+
+const RELATED_PRODUCTS_QUERY = `#graphql
+  fragment RelatedProduct on Product {
+    id
+    title
+    handle
+    vendor
+    productType
+    availableForSale
+    featuredImage {
+      id
+      url
+      altText
+      width
+      height
+    }
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+  query RelatedProducts(
+    $country: CountryCode
+    $language: LanguageCode
+    $productType: String!
+    $first: Int!
+  ) @inContext(country: $country, language: $language) {
+    products(first: $first, query: $productType) {
+      nodes {
+        ...RelatedProduct
+      }
+    }
+  }
 ` as const;

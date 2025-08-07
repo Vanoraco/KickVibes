@@ -13,7 +13,7 @@ interface EnhancedAllProductsPageProps {
 export function EnhancedAllProductsPage({products}: EnhancedAllProductsPageProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('featured');
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([500, 3000]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [availabilityFilter, setAvailabilityFilter] = useState<'all' | 'in-stock' | 'on-sale'>('all');

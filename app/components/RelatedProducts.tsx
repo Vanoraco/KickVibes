@@ -7,6 +7,7 @@ interface RelatedProduct {
   title: string;
   handle: string;
   vendor?: string;
+  productType?: string;
   featuredImage?: {
     id: string;
     url: string;
@@ -83,7 +84,7 @@ function RelatedProductCard({ product }: { product: RelatedProduct }) {
 
         <div className="simple-product-info">
           <div className="simple-product-brand">
-            {product.vendor || product.title.split(' ')[0]}
+            {product.productType || product.vendor || product.title.split(' ')[0]}
           </div>
           <h3 className="simple-product-title">{product.title}</h3>
           <div className="simple-product-price">
