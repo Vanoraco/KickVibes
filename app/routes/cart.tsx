@@ -116,7 +116,11 @@ export default function Cart() {
           <span>/</span>
           <span>Shopping Cart</span>
         </div>
-        <h1 className="cart-page-title">Your Cart</h1>
+        <h1 className="cart-page-title">
+          <span className="cart-title-shoe cart-title-shoe-left">👟</span>
+          Your Cart
+          <span className="cart-title-shoe cart-title-shoe-right">👟</span>
+        </h1>
         <CartMain layout="page" cart={cart} />
       </div>
     </div>

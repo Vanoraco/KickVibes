@@ -20,6 +20,7 @@ import promoSectionStyles from '~/styles/promo-section.css?url';
 import footerStyles from '~/styles/footer.css?url';
 import newsletterSectionStyles from '~/styles/newsletter-section.css?url';
 import notFoundStyles from '~/styles/not-found.css?url';
+import contactStyles from '~/styles/contact.css?url';
 import {PageLayout} from './components/PageLayout';
 import {NotFoundPage} from './components/NotFoundPage';
 
@@ -176,6 +177,7 @@ export function Layout({children}: {children?: React.ReactNode}) {
         <link rel="stylesheet" href={footerStyles}></link>
         <link rel="stylesheet" href={newsletterSectionStyles}></link>
         <link rel="stylesheet" href={notFoundStyles}></link>
+        <link rel="stylesheet" href={contactStyles}></link>
         <Meta />
         <Links />
       </head>

@@ -6,7 +6,7 @@ import {
   urlWithTrackingParams,
   type PredictiveSearchReturn,
 } from '~/lib/search';
-import {useAside} from './Aside';
+
 
 type PredictiveSearchItems = PredictiveSearchReturn['result']['items'];
 
@@ -42,7 +42,6 @@ type SearchResultsPredictiveProps = {
 export function SearchResultsPredictive({
   children,
 }: SearchResultsPredictiveProps) {
-  const aside = useAside();
   const {term, inputRef, fetcher, total, items} = usePredictiveSearch();
 
   /*
@@ -56,11 +55,10 @@ export function SearchResultsPredictive({
   }
 
   /**
-   * Utility that resets the search input and closes the search aside
+   * Utility that resets the search input
    */
   function closeSearch() {
     resetInput();
-    aside.close();
   }
 
   return children({

@@ -85,9 +85,7 @@ function PromoContent() {
         SPORTY & STYLISH
       </h2>
       <p className="promo-description">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-        commodo ligula eget dolor. Aenean massa. Cum sociis natoque
-        penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+        We believe that great style shouldn't break the bank. Our selection brings you quality, comfort, and the hottest trends from around the world, all at prices that make sense for the South African consumer.
       </p>
       <Link to="/collections/all" className="promo-button">
         SHOP NOW

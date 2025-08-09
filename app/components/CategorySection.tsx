@@ -78,8 +78,7 @@ export function CategorySection({ products }: CategorySectionProps) {
           <div className="hot-product-content">
             <h2 className="hot-product-title">HOT PRODUCT.</h2>
             <p className="hot-product-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, 
-              luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              Welcome to your ultimate destination for all things footwear. We know that in South Africa, a good pair of shoes is a non-negotiable. Whether you're heading to a braai, hitting the streets, or getting ready for a big night out, the right shoes complete your look and give you the confidence to own it.
             </p>
             <Link to="/collections/all" className="hot-product-button">
               SEE MORE

@@ -100,10 +100,10 @@ function NotFoundContent() {
       <div className="not-found-suggestions">
         <h3 className="suggestions-title">Popular Pages:</h3>
         <div className="suggestions-links">
-          <Link to="/collections/running" className="suggestion-link">Running Shoes</Link>
-          <Link to="/collections/men" className="suggestion-link">Men's Collection</Link>
-          <Link to="/collections/women" className="suggestion-link">Women's Collection</Link>
-          <Link to="/collections/hot-products" className="suggestion-link">Hot Products</Link>
+          <Link to="/collections/all" className="suggestion-link">All Products</Link>
+          <Link to="/collections/all" className="suggestion-link">Shop Sneakers</Link>
+          <Link to="/collections/all" className="suggestion-link">Browse Collection</Link>
+          <Link to="/collections/all" className="suggestion-link">Find Your Style</Link>
         </div>
       </div>
     </div>

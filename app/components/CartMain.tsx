@@ -1,7 +1,7 @@
 import {useOptimisticCart} from '@shopify/hydrogen';
 import { Link } from 'react-router';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
+
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
 
@@ -21,19 +21,19 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
   // so the user immediately sees feedback when they modify the cart.
   const cart = useOptimisticCart(originalCart);
 
-  const linesCount = Boolean(cart?.lines?.nodes?.length || 0);
+  const linesCount = cart?.lines?.nodes?.length || 0;
   const withDiscount =
     cart &&
     Boolean(cart?.discountCodes?.filter((code) => code.applicable)?.length);
   const className = `cart-main ${withDiscount ? 'with-discount' : ''}`;
-  const cartHasItems = cart?.totalQuantity ? cart.totalQuantity > 0 : false;
+  const cartHasItems = linesCount > 0;
 
   return (
     <div className="cart-layout">
       <div className="cart-items-section">
         <div className={className}>
-          <CartEmpty hidden={linesCount} layout={layout} />
-          {linesCount && (
+          {!cartHasItems && <CartEmpty layout={layout} />}
+          {cartHasItems && (
             <>
               <div className="cart-items-header">
                 <h2>Items in your cart</h2>
@@ -61,23 +61,31 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
 }
 
 function CartEmpty({
-  hidden = false,
+  layout,
 }: {
-  hidden: boolean;
   layout?: CartMainProps['layout'];
 }) {
-  const {close} = useAside();
   return (
-    <div hidden={hidden}>
-      <br />
-      <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
-      </p>
-      <br />
-      <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
-      </Link>
+    <div className="cart-empty">
+      <div className="cart-empty-content">
+        <div className="cart-empty-icon">
+          🛒
+        </div>
+        <h2 className="cart-empty-title">Your Cart is Empty</h2>
+        <p className="cart-empty-description">
+          Looks like you haven't added any kicks to your cart yet.
+          Let's find you some fresh sneakers!
+        </p>
+        <div className="cart-empty-actions">
+          <Link to="/collections/all" className="cart-empty-shop-btn" prefetch="viewport">
+            <span className="cart-empty-btn-text">Shop All Products</span>
+            <span className="cart-empty-btn-arrow">→</span>
+          </Link>
+          <Link to="/" className="cart-empty-home-btn" prefetch="viewport">
+            Back to Home
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

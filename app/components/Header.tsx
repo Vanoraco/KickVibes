@@ -6,7 +6,7 @@ import {
   useOptimisticCart,
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
+
 import {NewSearchBar} from '~/components/NewSearchBar';
 
 interface HeaderProps {
@@ -87,7 +87,7 @@ export function Header({
         <NewSearchBar />
 
         {/* Right side actions */}
-        <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+        <HeaderCtas cart={cart} />
       </div>
     </header>
   );
@@ -105,14 +105,11 @@ export function HeaderMenu({
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
   const className = `kickvibes-header-menu-${viewport}`;
-  const {close} = useAside();
 
   // KickVibes specific navigation items
   const kickVibesNavItems = [
     { title: 'HOME', url: '/' },
-    { title: 'SHOP', url: '/collections' },
-    { title: 'NEWS', url: '/blogs/news' },
-    { title: 'PAGES', url: '/pages' },
+    { title: 'SHOP', url: '/collections/all' },
     { title: 'CONTACT US', url: '/contact' },
   ];
 
@@ -121,7 +118,6 @@ export function HeaderMenu({
       {viewport === 'mobile' && (
         <NavLink
           end={true}
-          onClick={close}
           prefetch="intent"
           className={({isActive}) => `kickvibes-nav-item ${isActive ? 'active' : ''}`}
           to="/"
@@ -129,15 +125,14 @@ export function HeaderMenu({
           HOME
         </NavLink>
       )}
-      {kickVibesNavItems.map((item, index) => {
+      {kickVibesNavItems.map((item) => {
         if (viewport === 'mobile' && item.url === '/') return null; // Skip home for mobile as it's already added above
 
         return (
           <NavLink
             className={({isActive}) => `kickvibes-nav-item ${isActive ? 'active' : ''}`}
             end={item.url === '/'}
-            key={index}
-            onClick={close}
+            key={item.title}
             prefetch="intent"
             to={item.url}
           >
@@ -150,47 +145,16 @@ export function HeaderMenu({
 }
 
 function HeaderCtas({
-  isLoggedIn,
   cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+}: Pick<HeaderProps, 'cart'>) {
   return (
     <div className="kickvibes-header-actions">
-      <HeaderMenuMobileToggle />
       <CartToggle cart={cart} />
     </div>
   );
 }
 
-function HeaderMenuMobileToggle() {
-  const {open, close, type} = useAside();
-  const isOpen = type === 'mobile';
 
-  const handleToggle = () => {
-    if (isOpen) {
-      close();
-    } else {
-      open('mobile');
-    }
-  };
-
-  return (
-    <button
-      className="kickvibes-mobile-toggle"
-      onClick={handleToggle}
-      aria-label={isOpen ? "Close mobile menu" : "Open mobile menu"}
-    >
-      {isOpen ? (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      ) : (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 12H21M3 6H21M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      )}
-    </button>
-  );
-}
 
 
 
