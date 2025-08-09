@@ -15,20 +15,24 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
-      <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
-        <dd>
-          {cart.cost?.subtotalAmount?.amount ? (
-            <Money data={cart.cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
-      <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
-      <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+      <div className="cart-summary-header">
+        <h4>Order Summary</h4>
+      </div>
+      <div className="cart-summary-content">
+        <dl className="cart-subtotal">
+          <dt>Subtotal</dt>
+          <dd>
+            {cart.cost?.subtotalAmount?.amount ? (
+              <Money data={cart.cost?.subtotalAmount} />
+            ) : (
+              '-'
+            )}
+          </dd>
+        </dl>
+        <CartDiscounts discountCodes={cart.discountCodes} />
+        <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
+        <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+      </div>
     </div>
   );
 }
@@ -36,11 +40,14 @@ function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className="cart-checkout-actions">
+      <a href={checkoutUrl} target="_self" className="checkout-button">
+        <span>Continue to Checkout</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12,5 19,12 12,19"></polyline>
+        </svg>
       </a>
-      <br />
     </div>
   );
 }

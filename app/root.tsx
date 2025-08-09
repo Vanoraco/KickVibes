@@ -67,7 +67,7 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'icon', type: 'image/svg+xml', href: favicon},
+    {rel: 'icon', type: 'image/png', href: 'https://cdn.shopify.com/s/files/1/0757/9461/2478/files/logo.png?v=1753520942'},
   ];
 }
 

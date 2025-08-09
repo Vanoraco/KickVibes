@@ -29,18 +29,33 @@ export function CartMain({layout, cart: originalCart}: CartMainProps) {
   const cartHasItems = cart?.totalQuantity ? cart.totalQuantity > 0 : false;
 
   return (
-    <div className={className}>
-      <CartEmpty hidden={linesCount} layout={layout} />
-      <div className="cart-details">
-        <div aria-labelledby="cart-lines">
-          <ul>
-            {(cart?.lines?.nodes ?? []).map((line) => (
-              <CartLineItem key={line.id} line={line} layout={layout} />
-            ))}
-          </ul>
+    <div className="cart-layout">
+      <div className="cart-items-section">
+        <div className={className}>
+          <CartEmpty hidden={linesCount} layout={layout} />
+          {linesCount && (
+            <>
+              <div className="cart-items-header">
+                <h2>Items in your cart</h2>
+              </div>
+              <div className="cart-details">
+                <div aria-labelledby="cart-lines">
+                  <ul className="cart-items-list">
+                    {(cart?.lines?.nodes ?? []).map((line) => (
+                      <CartLineItem key={line.id} line={line} layout={layout} />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-        {cartHasItems && <CartSummary cart={cart} layout={layout} />}
       </div>
+      {cartHasItems && (
+        <div className="cart-summary-section">
+          <CartSummary cart={cart} layout={layout} />
+        </div>
+      )}
     </div>
   );
 }

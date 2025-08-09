@@ -89,7 +89,7 @@ function PromoContent() {
         commodo ligula eget dolor. Aenean massa. Cum sociis natoque
         penatibus et magnis dis parturient montes, nascetur ridiculus mus.
       </p>
-      <Link to="/collections" className="promo-button">
+      <Link to="/collections/all" className="promo-button">
         SHOP NOW
       </Link>
     </div>

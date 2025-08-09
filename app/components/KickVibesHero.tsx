@@ -26,25 +26,24 @@ export function KickVibesHero() {
         <div className="kickvibes-hero-content">
           
 
-          <h1 className="kickvibes-hero-title">KICKVIBES 1</h1>
+          <h1 className="kickvibes-hero-title">KICKVIBES</h1>
           <h2 className="kickvibes-hero-subtitle">COMFY AND TRENDY</h2>
 
           <p className="kickvibes-hero-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-            luctus nec ullamcorper mattis, pulvinar dapibus leo.
+             Your destination for the comfiest and trendiest sneakers and shoes in South Africa. Find your perfect pair with our curated collection of styles, blending cutting-edge design with all-day comfort. Step up your street style with KICKVIBES.
           </p>
 
           <div className="kickvibes-hero-thumbnails">
             <div className="kickvibes-thumbnail kickvibes-thumbnail-active">
-              <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=80&h=80&fit=crop&crop=center" alt="KickVibes 1 Black" />
+              <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=80&h=80&fit=crop&crop=center" alt="KickVibes  Black" />
             </div>
             <div className="kickvibes-thumbnail">
-              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=80&h=80&fit=crop&crop=center" alt="KickVibes 1 Blue" />
+              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=80&h=80&fit=crop&crop=center" alt="KickVibes Blue" />
             </div>
           </div>
 
-          <Link to="/collections/shoes" className="kickvibes-shop-button">
-            SHOP HERE
+          <Link to="/collections/all" className="kickvibes-shop-button">
+            SHOP NOW
           </Link>
         </div>
 
@@ -53,7 +52,7 @@ export function KickVibesHero() {
           <div className="kickvibes-main-shoe">
             <img
               src="https://cdn.shopify.com/s/files/1/0757/9461/2478/files/Sneaker.png?v=1753524891"
-              alt="KickVibes 1 Sneaker"
+              alt="KickVibes Sneaker"
               className="kickvibes-shoe-image"
             />
           </div>

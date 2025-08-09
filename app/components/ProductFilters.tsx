@@ -10,6 +10,7 @@ interface ProductFiltersProps {
   onAvailabilityChange: (filter: 'all' | 'in-stock' | 'on-sale') => void;
   selectedSizes: string[];
   onSizesChange: (sizes: string[]) => void;
+  onClose?: () => void;
 }
 
 export function ProductFilters({
@@ -21,7 +22,8 @@ export function ProductFilters({
   availabilityFilter,
   onAvailabilityChange,
   selectedSizes,
-  onSizesChange
+  onSizesChange,
+  onClose
 }: ProductFiltersProps) {
 
   const handleBrandToggle = (brand: string) => {

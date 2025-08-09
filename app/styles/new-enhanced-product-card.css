@@ -1,0 +1,222 @@
+.new-enhanced-product-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: #e0e5ec;
+  border-radius: 20px;
+  box-shadow:
+    9px 9px 16px rgba(163, 177, 198, 0.45),
+    -9px -9px 16px rgba(255, 255, 255, 0.6);
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+  width: 100%;
+  max-width: 260px;
+  margin: 0 auto;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  border: none;
+  color: #0f172a;
+}
+
+.new-enhanced-product-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow:
+    inset 4px 4px 8px rgba(163, 177, 198, 0.3),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.1),
+    0 8px 32px rgba(59, 130, 246, 0.25);
+  background: linear-gradient(135deg, #e0e5ec 0%, #d1d9e6 100%);
+}
+
+.product-link {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none !important;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.product-link:hover {
+  text-decoration: none !important;
+}
+
+.product-link:hover * {
+  text-decoration: none !important;
+}
+
+/* Neuromorphism Image Container */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #e0e5ec;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 20px 0 0;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 12px;
+  background: transparent;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.new-enhanced-product-card:hover .product-image {
+  transform: scale(1.1);
+  filter: brightness(1.1) contrast(1.05);
+}
+
+.product-stock-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.92);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    4px 4px 8px rgba(163, 177, 198, 0.4),
+    -2px -2px 4px rgba(255, 255, 255, 0.6);
+  transition: all 0.3s ease;
+}
+
+.new-enhanced-product-card:hover .product-stock-badge {
+  background: rgba(59, 130, 246, 0.9);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.new-enhanced-product-card.out-of-stock {
+  opacity: 0.75;
+}
+
+.product-info {
+  padding: 1.5rem;
+  background: #e0e5ec;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none !important;
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.02em;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none !important;
+}
+
+.new-enhanced-product-card:hover .product-name {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.new-enhanced-product-card:hover .product-price {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .new-enhanced-product-card {
+    max-width: 100%;
+    border-radius: 16px;
+    background: #e0e5ec;
+    box-shadow:
+      6px 6px 12px rgba(163, 177, 198, 0.4),
+      -6px -6px 12px rgba(255, 255, 255, 0.6);
+  }
+
+  .new-enhanced-product-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow:
+      inset 3px 3px 6px rgba(163, 177, 198, 0.3),
+      inset -3px -3px 6px rgba(255, 255, 255, 0.1),
+      0 6px 24px rgba(59, 130, 246, 0.2);
+  }
+
+  .product-image-container {
+    height: 180px;
+    padding: 12px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .product-info {
+    padding: 16px;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .new-enhanced-product-card {
+    max-width: 100%;
+    border-radius: 14px;
+    background: #e0e5ec;
+    box-shadow:
+      4px 4px 8px rgba(163, 177, 198, 0.35),
+      -4px -4px 8px rgba(255, 255, 255, 0.5);
+  }
+
+  .new-enhanced-product-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow:
+      inset 2px 2px 4px rgba(163, 177, 198, 0.25),
+      inset -2px -2px 4px rgba(255, 255, 255, 0.1),
+      0 4px 16px rgba(59, 130, 246, 0.15);
+  }
+
+  .product-image-container {
+    height: 160px;
+    padding: 10px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .product-info {
+    padding: 14px;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

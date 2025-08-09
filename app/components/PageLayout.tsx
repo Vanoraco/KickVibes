@@ -9,12 +9,7 @@ import {Aside} from '~/components/Aside';
 import {Footer} from '~/components/Footer';
 import {Header, HeaderMenu} from '~/components/Header';
 import {CartMain} from '~/components/CartMain';
-import {
-  SEARCH_ENDPOINT,
-  SearchFormPredictive,
-} from '~/components/SearchFormPredictive';
-import {SearchResultsPredictive} from '~/components/SearchResultsPredictive';
-import {EnhancedSearchAside} from '~/components/EnhancedSearchAside';
+
 
 interface PageLayoutProps {
   cart: Promise<CartApiQueryFragment | null>;
@@ -36,7 +31,6 @@ export function PageLayout({
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
-      <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
@@ -70,9 +64,7 @@ function CartAside({cart}: {cart: PageLayoutProps['cart']}) {
   );
 }
 
-function SearchAside() {
-  return <EnhancedSearchAside />;
-}
+
 
 function MobileMenuAside({
   header,

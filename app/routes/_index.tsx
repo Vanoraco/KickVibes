@@ -65,7 +65,7 @@ export default function Homepage() {
   return (
     <div className="home">
       <KickVibesHero />
-      <CategorySection />
+      <CategorySection products={data.recommendedProducts} />
       <PromoSection />
       <ProductsSection products={data.recommendedProducts} />
     </div>

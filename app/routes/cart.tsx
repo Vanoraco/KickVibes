@@ -1,4 +1,4 @@
-import { type MetaFunction, useLoaderData } from 'react-router';
+import { type MetaFunction, useLoaderData, Link } from 'react-router';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {
@@ -10,7 +10,7 @@ import {
 import {CartMain} from '~/components/CartMain';
 
 export const meta: MetaFunction = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return [{title: `KickVibes | Cart`}];
 };
 
 export const headers: HeadersFunction = ({actionHeaders}) => actionHeaders;
@@ -109,9 +109,16 @@ export default function Cart() {
   const cart = useLoaderData<typeof loader>();
 
   return (
-    <div className="cart">
-      <h1>Cart</h1>
-      <CartMain layout="page" cart={cart} />
+    <div className="cart-page">
+      <div className="cart-page-container">
+        <div className="cart-breadcrumb">
+          <Link to="/">Home</Link>
+          <span>/</span>
+          <span>Shopping Cart</span>
+        </div>
+        <h1 className="cart-page-title">Your Cart</h1>
+        <CartMain layout="page" cart={cart} />
+      </div>
     </div>
   );
 }
