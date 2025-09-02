@@ -2,53 +2,32 @@ import { Link } from 'react-router';
 import { Suspense } from 'react';
 import { Await } from 'react-router';
 import { Image, Money } from '@shopify/hydrogen';
+import type { CategoryCard } from '~/lib/metaobjects/category-cards';
+import { DEFAULT_CATEGORY_CARDS } from '~/lib/metaobjects/category-cards';
+import type { BrandInformation } from '~/lib/metaobjects/brand-information';
+import { DEFAULT_BRANDS } from '~/lib/metaobjects/brand-information';
 import type { RecommendedProductsQuery } from 'storefrontapi.generated';
 
 interface CategorySectionProps {
   products?: Promise<RecommendedProductsQuery | null>;
+  categoryCards?: CategoryCard[];
+  brands?: BrandInformation[];
 }
 
-export function CategorySection({ products }: CategorySectionProps) {
+export function CategorySection({ products, categoryCards, brands }: CategorySectionProps) {
+  // Use provided category cards or fallback to default
+  const cards = categoryCards && categoryCards.length > 0 ? categoryCards : DEFAULT_CATEGORY_CARDS;
+  // Use provided brands or fallback to default
+  const brandList = brands && brands.length > 0 ? brands : DEFAULT_BRANDS;
   return (
     <section className="category-section">
       <div className="category-section-container">
         {/* Category Cards Row */}
         <div className="category-cards">
-        {/* Running Category */}
-        <div className="category-card category-card-large">
-          <div className="category-card-content">
-            <h2 className="category-title">RUNNING.</h2>
-            <Link to="/collections/all" className="category-button">
-              SEE PRODUCT
-            </Link>
-          </div>
-          <div className="category-card-bg category-running-bg"></div>
+          {cards.map((card) => (
+            <CategoryCardComponent key={card.id} card={card} />
+          ))}
         </div>
-
-        {/* Woman Category */}
-        <div className="category-card category-card-medium">
-          <div className="category-card-content">
-            <h2 className="category-title">WOMEN</h2>
-            <Link to="/collections/all" className="category-button">
-              SEE PRODUCT
-            </Link>
-          </div>
-          <div className="category-card-bg category-woman-bg"></div>
-          <div className="category-accent category-accent-red"></div>
-        </div>
-
-        {/* Man Category */}
-        <div className="category-card category-card-medium">
-          <div className="category-card-content">
-            <h2 className="category-title">MEN</h2>
-            <Link to="/collections/all" className="category-button">
-              SEE PRODUCT
-            </Link>
-          </div>
-          <div className="category-card-bg category-man-bg"></div>
-          <div className="category-accent category-accent-red"></div>
-        </div>
-      </div>
 
       {/* Products and Hot Product Row */}
       <div className="products-row">
@@ -94,31 +73,13 @@ export function CategorySection({ products }: CategorySectionProps) {
       <div className="brand-logos-carousel">
         <div className="brand-logos-track">
           {/* First set of brands */}
-          <div className="brand-logo">
-            <span className="brand-name brand-nike">NIKE</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-sketcha">SKETCHER</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-specha">REEBOK</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-adhida">ADIDAS</span>
-          </div>
+          {brandList.map((brand) => (
+            <BrandLogoComponent key={brand.id} brand={brand} />
+          ))}
           {/* Duplicate set for seamless loop */}
-          <div className="brand-logo">
-            <span className="brand-name brand-nike">NIKE</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-sketcha">SKETCHER</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-specha">REEBOK</span>
-          </div>
-          <div className="brand-logo">
-            <span className="brand-name brand-adhida">ADIDAS</span>
-          </div>
+          {brandList.map((brand) => (
+            <BrandLogoComponent key={`${brand.id}-duplicate`} brand={brand} />
+          ))}
         </div>
       </div>
       </div>
@@ -183,4 +144,98 @@ function ProductGridSkeleton() {
       ))}
     </>
   );
+}
+
+// Component for individual category card
+function CategoryCardComponent({ card }: { card: CategoryCard }) {
+  const cardSizeClass = `category-card-${card.cardSize}`;
+  const backgroundClass = card.cssClass || '';
+
+  return (
+    <div className={`category-card ${cardSizeClass}`}>
+      <div className="category-card-content">
+        <h2 className="category-title">{card.title}</h2>
+        {card.description && (
+          <p className="category-description">{card.description}</p>
+        )}
+        <Link to={card.buttonUrl} className="category-button">
+          {card.buttonText}
+        </Link>
+      </div>
+
+      {/* Background image or CSS class */}
+      {card.backgroundImage ? (
+        <div className="category-card-bg">
+          <img
+            src={card.backgroundImage.url}
+            alt={card.backgroundImage.altText}
+            className="category-bg-image"
+            loading="lazy"
+          />
+        </div>
+      ) : (
+        <div className={`category-card-bg ${backgroundClass}`}></div>
+      )}
+
+      {/* Accent color */}
+      {card.accentColor && (
+        <div
+          className="category-accent"
+          style={{ backgroundColor: card.accentColor }}
+        ></div>
+      )}
+    </div>
+  );
+}
+
+// Component for individual brand logo
+function BrandLogoComponent({ brand }: { brand: BrandInformation }) {
+  const displayName = brand.displayName || brand.name;
+  const brandClass = brand.cssClass || '';
+
+  const brandElement = (
+    <div className="brand-logo">
+      {brand.logoImage ? (
+        <img
+          src={brand.logoImage.url}
+          alt={brand.logoImage.altText}
+          className="brand-logo-image"
+          loading="lazy"
+        />
+      ) : (
+        <span
+          className={`brand-name ${brandClass}`}
+          style={{ color: brand.brandColor }}
+        >
+          {displayName}
+        </span>
+      )}
+    </div>
+  );
+
+  // If there's a collection URL, wrap in a Link
+  if (brand.collectionUrl) {
+    return (
+      <Link to={brand.collectionUrl} className="brand-link">
+        {brandElement}
+      </Link>
+    );
+  }
+
+  // If there's a website URL, wrap in an external link
+  if (brand.websiteUrl) {
+    return (
+      <a
+        href={brand.websiteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="brand-link"
+      >
+        {brandElement}
+      </a>
+    );
+  }
+
+  // Otherwise, just return the brand element
+  return brandElement;
 }

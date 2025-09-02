@@ -1,5 +1,7 @@
 import { Link } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
+import type { HomepageContent } from '~/lib/metaobjects/homepage-content';
+import { DEFAULT_HOMEPAGE_CONTENT } from '~/lib/metaobjects/homepage-content';
 
 // Custom hook for responsive screen size detection
 function useResponsiveScreen() {
@@ -77,33 +79,42 @@ function useScrollProgress(elementRef: React.RefObject<HTMLElement>) {
 }
 
 // Component for promo content section
-function PromoContent() {
+function PromoContent({ content }: { content: HomepageContent }) {
+  // Convert \n in title to <br> tags
+  const formatTitle = (title: string) => {
+    return title.split('\\n').map((line, index, array) => (
+      <span key={index}>
+        {line}
+        {index < array.length - 1 && <br />}
+      </span>
+    ));
+  };
+
   return (
     <div className="promo-content">
       <h2 className="promo-title">
-        MAKES YOURSELF KEEP<br />
-        SPORTY & STYLISH
+        {formatTitle(content.title)}
       </h2>
       <p className="promo-description">
-        We believe that great style shouldn't break the bank. Our selection brings you quality, comfort, and the hottest trends from around the world, all at prices that make sense for the South African consumer.
+        {content.description}
       </p>
-      <Link to="/collections/all" className="promo-button">
-        SHOP NOW
+      <Link to={content.buttonUrl} className="promo-button">
+        {content.buttonText}
       </Link>
     </div>
   );
 }
 
 // Component for promo image section
-function PromoImage() {
+function PromoImage({ content }: { content: HomepageContent }) {
   const { isMobile } = useResponsiveScreen();
 
   return (
     <div className="promo-image">
       <div className="promo-shoe-container">
         <img
-          src="https://cdn.shopify.com/s/files/1/0757/9461/2478/files/proshoe.webp?v=1753864297"
-          alt="Sporty & Stylish Sneakers"
+          src={content.featuredImage.url}
+          alt={content.featuredImage.altText}
           className="promo-shoe-img"
           loading="lazy"
           style={{
@@ -129,9 +140,16 @@ function PromoBackgroundElements() {
 }
 
 // Main PromoSection component
-export function PromoSection() {
+export function PromoSection({
+  homepageContent
+}: {
+  homepageContent?: HomepageContent
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const scrollProgress = useScrollProgress(sectionRef);
+
+  // Use provided content or fallback to default
+  const content = homepageContent || DEFAULT_HOMEPAGE_CONTENT;
 
   return (
     <section ref={sectionRef} className="promo-section">
@@ -141,8 +159,8 @@ export function PromoSection() {
           '--scroll-progress': scrollProgress.toString()
         } as React.CSSProperties}
       >
-        <PromoContent />
-        <PromoImage />
+        <PromoContent content={content} />
+        <PromoImage content={content} />
       </div>
 
       <PromoBackgroundElements />

@@ -8,12 +8,15 @@ import {
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 
 import {NewSearchBar} from '~/components/NewSearchBar';
+import type { SiteSettings } from '~/lib/metaobjects/site-settings';
+import { DEFAULT_SITE_SETTINGS } from '~/lib/metaobjects/site-settings';
 
 interface HeaderProps {
   header: HeaderQuery;
   cart: Promise<CartApiQueryFragment | null>;
   isLoggedIn: Promise<boolean>;
   publicStoreDomain: string;
+  siteSettings?: SiteSettings;
 }
 
 type Viewport = 'desktop' | 'mobile';
@@ -23,7 +26,10 @@ export function Header({
   isLoggedIn,
   cart,
   publicStoreDomain,
+  siteSettings,
 }: HeaderProps) {
+  // Use provided site settings or fallback to default
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS;
   const {shop, menu} = header;
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -69,8 +75,8 @@ export function Header({
         {/* Logo */}
         <NavLink prefetch="intent" to="/" className="kickvibes-logo" end>
           <img
-            src="https://cdn.shopify.com/s/files/1/0757/9461/2478/files/logo.png?v=1753520942"
-            alt="KickVibes"
+            src={settings.logoImage?.url || 'https://cdn.shopify.com/s/files/1/0757/9461/2478/files/logo.png?v=1753520942'}
+            alt={settings.logoImage?.altText || settings.logoAltText || settings.siteName}
             className="kickvibes-logo-img"
           />
         </NavLink>
@@ -81,6 +87,7 @@ export function Header({
           viewport="desktop"
           primaryDomainUrl={header.shop.primaryDomain.url}
           publicStoreDomain={publicStoreDomain}
+          siteSettings={settings}
         />
 
         {/* Search Bar */}
@@ -98,16 +105,19 @@ export function HeaderMenu({
   primaryDomainUrl,
   viewport,
   publicStoreDomain,
+  siteSettings,
 }: {
   menu: HeaderProps['header']['menu'];
   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
   viewport: Viewport;
   publicStoreDomain: HeaderProps['publicStoreDomain'];
+  siteSettings?: SiteSettings;
 }) {
   const className = `kickvibes-header-menu-${viewport}`;
 
-  // KickVibes specific navigation items
-  const kickVibesNavItems = [
+  // Use dynamic navigation items or fallback to default
+  const settings = siteSettings || DEFAULT_SITE_SETTINGS;
+  const kickVibesNavItems = settings.navigationItems || [
     { title: 'HOME', url: '/' },
     { title: 'SHOP', url: '/collections/all' },
     { title: 'CONTACT US', url: '/contact' },

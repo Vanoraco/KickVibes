@@ -1,6 +1,14 @@
 import { useState } from 'react';
+import type { NewsletterSettings } from '~/lib/metaobjects/newsletter-settings';
+import { DEFAULT_NEWSLETTER_SETTINGS } from '~/lib/metaobjects/newsletter-settings';
 
-export function NewsletterSection() {
+export function NewsletterSection({
+  newsletterSettings
+}: {
+  newsletterSettings?: NewsletterSettings
+}) {
+  // Use provided settings or fallback to default
+  const settings = newsletterSettings || DEFAULT_NEWSLETTER_SETTINGS;
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,14 +27,25 @@ export function NewsletterSection() {
     }, 1500);
   };
 
+  // Don't render if not active
+  if (!settings.isActive) {
+    return null;
+  }
+
   return (
-    <section className="newsletter-section">
+    <section
+      className="newsletter-section"
+      style={{
+        backgroundColor: settings.backgroundColor,
+        color: settings.textColor,
+      }}
+    >
       <div className="newsletter-container">
         {!isSubscribed ? (
           <div className="newsletter-content">
-            <h2 className="newsletter-title">Stay Updated</h2>
+            <h2 className="newsletter-title">{settings.title}</h2>
             <p className="newsletter-description">
-              Get notified about new releases and exclusive offers.
+              {settings.description}
             </p>
 
             <form onSubmit={handleSubmit} className="newsletter-form">
@@ -35,7 +54,7 @@ export function NewsletterSection() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder={settings.placeholderText || 'Enter your email'}
                   className="newsletter-input"
                   required
                   disabled={isLoading}
@@ -44,21 +63,26 @@ export function NewsletterSection() {
                   type="submit"
                   className="newsletter-button"
                   disabled={isLoading || !email}
+                  style={{
+                    backgroundColor: settings.buttonColor,
+                  }}
                 >
-                  {isLoading ? 'Subscribing...' : 'Subscribe'}
+                  {isLoading ? (settings.loadingText || 'Subscribing...') : settings.buttonText}
                 </button>
               </div>
             </form>
 
-            <p className="newsletter-privacy">
-              We respect your privacy. Unsubscribe at any time.
-            </p>
+            {settings.showPrivacyText && settings.privacyText && (
+              <p className="newsletter-privacy">
+                {settings.privacyText}
+              </p>
+            )}
           </div>
         ) : (
           <div className="newsletter-success">
-            <h3 className="newsletter-success-title">Thank you!</h3>
+            <h3 className="newsletter-success-title">{settings.successTitle}</h3>
             <p className="newsletter-success-message">
-              You've been successfully subscribed to our newsletter.
+              {settings.successMessage}
             </p>
           </div>
         )}

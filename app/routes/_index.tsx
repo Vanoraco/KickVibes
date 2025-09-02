@@ -11,6 +11,7 @@ import {KickVibesHero} from '~/components/KickVibesHero';
 import {CategorySection} from '~/components/CategorySection';
 import {PromoSection} from '~/components/PromoSection';
 import {ProductsSection} from '~/components/ProductsSection';
+import { HERO_SECTION_QUERY, getActiveHeroSection } from '~/lib/metaobjects/hero-section';
 
 export const meta: MetaFunction = () => {
   return [{title: 'KickVibes | Home'}];
@@ -31,13 +32,20 @@ export async function loader(args: LoaderFunctionArgs) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
 async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
+  const [{collections}, heroSectionData] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
+    context.storefront.query(HERO_SECTION_QUERY).catch((error) => {
+      console.error('Hero section query error:', error);
+      return { metaobjects: { nodes: [] } };
+    }),
     // Add other queries here, so that they are loaded in parallel
   ]);
 
+  const heroSection = getActiveHeroSection(heroSectionData.metaobjects.nodes);
+
   return {
     featuredCollection: collections.nodes[0],
+    heroSection,
   };
 }
 
@@ -64,7 +72,7 @@ export default function Homepage() {
   const data = useLoaderData<typeof loader>();
   return (
     <div className="home">
-      <KickVibesHero />
+      <KickVibesHero heroSection={data.heroSection} />
       <CategorySection products={data.recommendedProducts} />
       <PromoSection />
       <ProductsSection products={data.recommendedProducts} />

@@ -1,6 +1,19 @@
 import { Link } from 'react-router';
+import type { HeroSection } from '~/lib/metaobjects/hero-section';
+import { DEFAULT_HERO_SECTION } from '~/lib/metaobjects/hero-section';
 
-export function KickVibesHero() {
+export function KickVibesHero({
+  heroSection
+}: {
+  heroSection?: HeroSection
+}) {
+  // Use provided hero section or fallback to default
+  const hero = heroSection || DEFAULT_HERO_SECTION;
+
+  // Don't render if not active
+  if (!hero.isActive) {
+    return null;
+  }
   return (
     <section className="kickvibes-hero">
       {/* Background decorative elements */}
@@ -24,26 +37,34 @@ export function KickVibesHero() {
       <div className="kickvibes-hero-container">
         {/* Left content */}
         <div className="kickvibes-hero-content">
-          
-
-          <h1 className="kickvibes-hero-title">KICKVIBES</h1>
-          <h2 className="kickvibes-hero-subtitle">COMFY AND TRENDY</h2>
+          <h1 className="kickvibes-hero-title">{hero.heroTitle}</h1>
+          <h2 className="kickvibes-hero-subtitle">{hero.heroSubtitle}</h2>
 
           <p className="kickvibes-hero-description">
-             Your destination for the comfiest and trendiest sneakers and shoes in South Africa. Find your perfect pair with our curated collection of styles, blending cutting-edge design with all-day comfort. Step up your street style with KICKVIBES.
+            {hero.heroDescription}
           </p>
 
           <div className="kickvibes-hero-thumbnails">
-            <div className="kickvibes-thumbnail kickvibes-thumbnail-active">
-              <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=80&h=80&fit=crop&crop=center" alt="KickVibes  Black" />
-            </div>
-            <div className="kickvibes-thumbnail">
-              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=80&h=80&fit=crop&crop=center" alt="KickVibes Blue" />
-            </div>
+            {hero.thumbnailImage1 && (
+              <div className="kickvibes-thumbnail kickvibes-thumbnail-active">
+                <img
+                  src={hero.thumbnailImage1.url}
+                  alt={hero.thumbnailImage1.altText}
+                />
+              </div>
+            )}
+            {hero.thumbnailImage2 && (
+              <div className="kickvibes-thumbnail">
+                <img
+                  src={hero.thumbnailImage2.url}
+                  alt={hero.thumbnailImage2.altText}
+                />
+              </div>
+            )}
           </div>
 
-          <Link to="/collections/all" className="kickvibes-shop-button">
-            SHOP NOW
+          <Link to={hero.buttonUrl} className="kickvibes-shop-button">
+            {hero.buttonText}
           </Link>
         </div>
 
@@ -51,8 +72,8 @@ export function KickVibesHero() {
         <div className="kickvibes-hero-image">
           <div className="kickvibes-main-shoe">
             <img
-              src="https://cdn.shopify.com/s/files/1/0757/9461/2478/files/Sneaker.png?v=1753524891"
-              alt="KickVibes Sneaker"
+              src={hero.mainHeroImage.url}
+              alt={hero.mainHeroImage.altText}
               className="kickvibes-shoe-image"
             />
           </div>

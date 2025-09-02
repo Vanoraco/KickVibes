@@ -1,4 +1,6 @@
 
+import type { ProductFilter } from '~/lib/metaobjects/product-filters';
+import { DEFAULT_PRODUCT_FILTERS, getSizeOptions, getPriceRangeFilter } from '~/lib/metaobjects/product-filters';
 
 interface ProductFiltersProps {
   priceRange: [number, number];
@@ -11,6 +13,7 @@ interface ProductFiltersProps {
   selectedSizes: string[];
   onSizesChange: (sizes: string[]) => void;
   onClose?: () => void;
+  productFilters?: ProductFilter[];
 }
 
 export function ProductFilters({
@@ -23,8 +26,16 @@ export function ProductFilters({
   onAvailabilityChange,
   selectedSizes,
   onSizesChange,
-  onClose
+  onClose,
+  productFilters
 }: ProductFiltersProps) {
+
+  // Use provided filters or fallback to default
+  const filters = productFilters && productFilters.length > 0 ? productFilters : DEFAULT_PRODUCT_FILTERS;
+
+  // Get dynamic values from filters
+  const sizeOptions = getSizeOptions(filters);
+  const priceRangeConfig = getPriceRangeFilter(filters);
 
   const handleBrandToggle = (brand: string) => {
     if (selectedBrands.includes(brand)) {
@@ -43,18 +54,31 @@ export function ProductFilters({
   };
 
   const clearAllFilters = () => {
-    onPriceRangeChange([500, 3000]);
+    // Use dynamic price range from filters or fallback to default
+    const defaultPriceRange: [number, number] = priceRangeConfig
+      ? [priceRangeConfig.min, priceRangeConfig.max]
+      : [500, 3000];
+
+    onPriceRangeChange(defaultPriceRange);
     onBrandsChange([]);
     onAvailabilityChange('all');
     onSizesChange([]);
   };
 
+  // Calculate active filters count using dynamic values
+  const defaultPriceRange = priceRangeConfig
+    ? [priceRangeConfig.min, priceRangeConfig.max]
+    : [500, 3000];
+
   const activeFiltersCount = selectedBrands.length +
     selectedSizes.length +
-    (priceRange[0] > 500 || priceRange[1] < 3000 ? 1 : 0) +
+    (priceRange[0] > defaultPriceRange[0] || priceRange[1] < defaultPriceRange[1] ? 1 : 0) +
     (availabilityFilter !== 'all' ? 1 : 0);
 
-  const commonSizes = ['6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12'];
+  // Use dynamic size options or fallback to default
+  const commonSizes = sizeOptions.length > 0
+    ? sizeOptions
+    : ['6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12'];
 
   return (
     <div className="product-filters-sidebar">
