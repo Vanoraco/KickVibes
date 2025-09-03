@@ -10,8 +10,7 @@
 /* Mobile-specific positioning */
 @media (max-width: 767px) {
   .new-search-bar {
-    margin-left: auto;
-    margin-right: 0.5rem;
+    /* Positioning handled by header container flex order */
   }
 }
 
@@ -82,15 +81,17 @@
 /* Mobile search input adjustments */
 @media (max-width: 767px) {
   .search-input-container {
-    width: 200px;
+    width: 180px;
     right: 0;
     left: auto;
   }
 
   .search-expanded {
-    width: 280px;
+    width: 220px;
     right: 0;
     left: auto;
+    /* Prevent overlap with logo by limiting expansion */
+    max-width: calc(100vw - 140px);
   }
 }
 
@@ -155,8 +156,8 @@
   .search-results-dropdown {
     right: 0;
     left: auto;
-    width: 280px;
-    max-width: calc(100vw - 2rem);
+    width: 220px;
+    max-width: calc(100vw - 140px);
   }
 }
 
@@ -411,15 +412,17 @@
   }
 
   .search-input-container {
-    width: 180px;
+    width: 160px;
   }
 
   .search-expanded {
-    width: 260px;
+    width: 200px;
+    max-width: calc(100vw - 140px);
   }
 
   .search-results-dropdown {
-    width: 260px;
+    width: 200px;
+    max-width: calc(100vw - 140px);
     max-height: 350px;
   }
 
@@ -472,15 +475,17 @@
   }
 
   .search-input-container {
-    width: 200px;
+    width: 150px;
   }
 
   .search-expanded {
-    width: 280px;
+    width: 180px;
+    max-width: calc(100vw - 120px);
   }
 
   .search-results-dropdown {
-    width: 280px;
+    width: 180px;
+    max-width: calc(100vw - 120px);
     max-height: 300px;
   }
 

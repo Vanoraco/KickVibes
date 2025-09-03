@@ -288,18 +288,21 @@ button.reset:hover:not(:has(> *)) {
     gap: 0.5rem;
   }
 
-  /* Create a flex container for search and cart on mobile */
+  /* Keep logo on left, search in middle, cart+menu on right */
+  .kickvibes-header-container .kickvibes-logo {
+    order: 1;
+    flex-shrink: 0;
+  }
+
   .kickvibes-header-container .new-search-bar {
     order: 2;
+    margin-left: auto;
+    margin-right: 0.5rem;
   }
 
   .kickvibes-header-container .kickvibes-header-actions {
     order: 3;
-  }
-
-  .kickvibes-header-container .kickvibes-logo {
-    order: 1;
-    flex: 1;
+    flex-shrink: 0;
   }
 
   /* Hide desktop navigation on mobile */
@@ -479,7 +482,7 @@ button.reset:hover:not(:has(> *)) {
   }
 }
 
-/* Mobile toggle - visible by default */
+/* Mobile toggle - visible on mobile only */
 .kickvibes-mobile-toggle {
   display: flex;
   align-items: center;

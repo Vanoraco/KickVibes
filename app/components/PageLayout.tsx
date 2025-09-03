@@ -6,7 +6,8 @@ import type {
   HeaderQuery,
 } from 'storefrontapi.generated';
 import {Footer} from '~/components/Footer';
-import {Header} from '~/components/Header';
+import {Header, HeaderMenu} from '~/components/Header';
+import {Aside} from '~/components/Aside';
 
 
 interface PageLayoutProps {
@@ -27,7 +28,17 @@ export function PageLayout({
   publicStoreDomain,
 }: PageLayoutProps) {
   return (
-    <>
+    <Aside.Provider>
+      {/* Mobile Menu Aside */}
+      <Aside type="mobile" heading="MENU">
+        <HeaderMenu
+          menu={header.menu}
+          viewport="mobile"
+          primaryDomainUrl={header.shop.primaryDomain.url}
+          publicStoreDomain={publicStoreDomain}
+        />
+      </Aside>
+
       {header && (
         <Header
           header={header}
@@ -42,7 +53,7 @@ export function PageLayout({
         header={header}
         publicStoreDomain={publicStoreDomain}
       />
-    </>
+    </Aside.Provider>
   );
 }
 

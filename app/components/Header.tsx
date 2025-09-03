@@ -10,6 +10,7 @@ import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {NewSearchBar} from '~/components/NewSearchBar';
 import type { SiteSettings } from '~/lib/metaobjects/site-settings';
 import { DEFAULT_SITE_SETTINGS } from '~/lib/metaobjects/site-settings';
+import {useAside} from '~/components/Aside';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -114,6 +115,7 @@ export function HeaderMenu({
   siteSettings?: SiteSettings;
 }) {
   const className = `kickvibes-header-menu-${viewport}`;
+  const {close} = viewport === 'mobile' ? useAside() : {close: () => {}};
 
   // Use dynamic navigation items or fallback to default
   const settings = siteSettings || DEFAULT_SITE_SETTINGS;
@@ -131,6 +133,7 @@ export function HeaderMenu({
           prefetch="intent"
           className={({isActive}) => `kickvibes-nav-item ${isActive ? 'active' : ''}`}
           to="/"
+          onClick={close}
         >
           HOME
         </NavLink>
@@ -145,6 +148,7 @@ export function HeaderMenu({
             key={item.title}
             prefetch="intent"
             to={item.url}
+            onClick={viewport === 'mobile' ? close : undefined}
           >
             {item.title}
           </NavLink>
@@ -160,13 +164,53 @@ function HeaderCtas({
   return (
     <div className="kickvibes-header-actions">
       <CartToggle cart={cart} />
+      <MobileMenuToggle />
     </div>
   );
 }
 
+function MobileMenuToggle() {
+  const {open, close, type} = useAside();
+  const isOpen = type === 'mobile';
 
-
-
+  return (
+    <button
+      className="kickvibes-mobile-toggle"
+      onClick={() => isOpen ? close() : open('mobile')}
+      aria-label={isOpen ? 'Close mobile menu' : 'Open mobile menu'}
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {isOpen ? (
+          // X icon when menu is open
+          <path
+            d="M18 6L6 18M6 6l12 12"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        ) : (
+          // Hamburger icon when menu is closed
+          <>
+            <path
+              d="M3 12h18M3 6h18M3 18h18"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </>
+        )}
+      </svg>
+    </button>
+  );
+}
 
 function CartBadge({count}: {count: number | null}) {
   const {publish, shop, cart, prevCart} = useAnalytics();
