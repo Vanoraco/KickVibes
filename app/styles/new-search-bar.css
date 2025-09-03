@@ -2,6 +2,9 @@
 .new-search-bar {
   position: relative;
   z-index: 1000;
+  /* Fixed width to prevent layout shifts */
+  width: 44px;
+  flex-shrink: 0;
 }
 
 /* Search Icon Button */
@@ -36,7 +39,10 @@
 }
 
 .search-input-container {
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   background: transparent;
@@ -48,6 +54,8 @@
   width: 220px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   min-height: 2.2rem;
+  /* Ensure it doesn't affect layout flow */
+  z-index: 1000;
 }
 
 .search-input-container:focus-within {
@@ -60,7 +68,7 @@
   width: 320px;
   border-radius: 20px 20px 0 0;
   border-bottom-color: transparent;
-  margin-right: 0.5rem;
+  /* Positioned absolutely so it overlays without affecting layout */
 }
 
 
@@ -106,7 +114,7 @@
 .search-results-dropdown {
   position: absolute;
   top: calc(100% - 1px);
-  left: 0;
+  right: 0;
   width: 100%;
   background: white;
   border: 2px solid #667eea;
@@ -288,11 +296,6 @@
 
   .search-expanded {
     width: 360px;
-    margin-right: 1rem;
-  }
-
-  .search-results-dropdown {
-    margin-right: 0;
   }
 }
 
@@ -304,7 +307,6 @@
 
   .search-expanded {
     width: 340px;
-    margin-right: 0.8rem;
   }
 }
 
@@ -316,12 +318,9 @@
 
   .search-expanded {
     width: 300px;
-    margin-right: 0.5rem;
   }
 
   .search-results-dropdown {
-    left: -20px;
-    right: -20px;
     max-height: 450px;
   }
 
@@ -339,12 +338,9 @@
 
   .search-expanded {
     width: 350px;
-    margin-right: 0.5rem;
   }
 
   .search-results-dropdown {
-    left: 0;
-    right: auto;
     width: 350px;
     max-height: 400px;
   }

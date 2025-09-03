@@ -288,6 +288,250 @@ export type FooterQuery = {
   >;
 };
 
+export type BrandInformationFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {
+  fields: Array<
+    Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+      reference?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MediaImage, 'id'> & {
+          image?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type BrandInformationQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type BrandInformationQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
+export type FeaturedBrandsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type FeaturedBrandsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
+export type BrandByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type BrandByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<
+        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+          reference?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MediaImage, 'id'> & {
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            }
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type CategoryCardFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {
+  fields: Array<
+    Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+      reference?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MediaImage, 'id'> & {
+          image?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type CategoryCardsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type CategoryCardsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
+export type CategoryCardByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type CategoryCardByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<
+        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+          reference?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MediaImage, 'id'> & {
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            }
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type HeroSectionFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {
+  fields: Array<
+    Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+      reference?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MediaImage, 'id'> & {
+          image?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type HeroSectionQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type HeroSectionQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
+export type HeroSectionByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type HeroSectionByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<
+        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+          reference?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MediaImage, 'id'> & {
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            }
+          >;
+        }
+      >;
+    }
+  >;
+};
+
 export type HomepageContentFragment = Pick<
   StorefrontAPI.Metaobject,
   'id' | 'handle' | 'type'
@@ -340,6 +584,146 @@ export type HomepageContentByHandleQueryVariables = StorefrontAPI.Exact<{
 }>;
 
 export type HomepageContentByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<
+        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+          reference?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.MediaImage, 'id'> & {
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            }
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type NewsletterSettingsFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>};
+
+export type NewsletterSettingsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type NewsletterSettingsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>;
+      }
+    >;
+  };
+};
+
+export type NewsletterSettingsByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type NewsletterSettingsByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>;
+    }
+  >;
+};
+
+export type ProductFilterFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>};
+
+export type ProductFiltersQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type ProductFiltersQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>;
+      }
+    >;
+  };
+};
+
+export type ProductFilterByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type ProductFilterByHandleQuery = {
+  metaobject?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+      fields: Array<Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>>;
+    }
+  >;
+};
+
+export type SiteSettingsFragment = Pick<
+  StorefrontAPI.Metaobject,
+  'id' | 'handle' | 'type'
+> & {
+  fields: Array<
+    Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+      reference?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MediaImage, 'id'> & {
+          image?: StorefrontAPI.Maybe<
+            Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+          >;
+        }
+      >;
+    }
+  >;
+};
+
+export type SiteSettingsQueryVariables = StorefrontAPI.Exact<{
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type SiteSettingsQuery = {
+  metaobjects: {
+    nodes: Array<
+      Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
+        fields: Array<
+          Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'> & {
+            reference?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.MediaImage, 'id'> & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              }
+            >;
+          }
+        >;
+      }
+    >;
+  };
+};
+
+export type SiteSettingsByHandleQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type SiteSettingsByHandleQuery = {
   metaobject?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Metaobject, 'id' | 'handle' | 'type'> & {
       fields: Array<
@@ -1337,6 +1721,34 @@ interface GeneratedQueryTypes {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
+  '#graphql\n  query BrandInformation($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "brand_information", first: 50) {\n      nodes {\n        ...BrandInformation\n      }\n    }\n  }\n  #graphql\n  fragment BrandInformation on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: BrandInformationQuery;
+    variables: BrandInformationQueryVariables;
+  };
+  '#graphql\n  query FeaturedBrands($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "brand_information", first: 20) {\n      nodes {\n        ...BrandInformation\n      }\n    }\n  }\n  #graphql\n  fragment BrandInformation on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: FeaturedBrandsQuery;
+    variables: FeaturedBrandsQueryVariables;
+  };
+  '#graphql\n  query BrandByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "brand_information"}) {\n      ...BrandInformation\n    }\n  }\n  #graphql\n  fragment BrandInformation on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: BrandByHandleQuery;
+    variables: BrandByHandleQueryVariables;
+  };
+  '#graphql\n  query CategoryCards($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "category_cards", first: 20) {\n      nodes {\n        ...CategoryCard\n      }\n    }\n  }\n  #graphql\n  fragment CategoryCard on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: CategoryCardsQuery;
+    variables: CategoryCardsQueryVariables;
+  };
+  '#graphql\n  query CategoryCardByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "category_cards"}) {\n      ...CategoryCard\n    }\n  }\n  #graphql\n  fragment CategoryCard on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: CategoryCardByHandleQuery;
+    variables: CategoryCardByHandleQueryVariables;
+  };
+  '#graphql\n  query HeroSection($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "hero_section", first: 5) {\n      nodes {\n        ...HeroSection\n      }\n    }\n  }\n  #graphql\n  fragment HeroSection on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: HeroSectionQuery;
+    variables: HeroSectionQueryVariables;
+  };
+  '#graphql\n  query HeroSectionByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "hero_section"}) {\n      ...HeroSection\n    }\n  }\n  #graphql\n  fragment HeroSection on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: HeroSectionByHandleQuery;
+    variables: HeroSectionByHandleQueryVariables;
+  };
   '#graphql\n  query HomepageContent($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "homepage_content", first: 10) {\n      nodes {\n        ...HomepageContent\n      }\n    }\n  }\n  #graphql\n  fragment HomepageContent on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
     return: HomepageContentQuery;
     variables: HomepageContentQueryVariables;
@@ -1344,6 +1756,30 @@ interface GeneratedQueryTypes {
   '#graphql\n  query HomepageContentByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "homepage_content"}) {\n      ...HomepageContent\n    }\n  }\n  #graphql\n  fragment HomepageContent on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
     return: HomepageContentByHandleQuery;
     variables: HomepageContentByHandleQueryVariables;
+  };
+  '#graphql\n  query NewsletterSettings($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "newsletter_settings", first: 10) {\n      nodes {\n        ...NewsletterSettings\n      }\n    }\n  }\n  #graphql\n  fragment NewsletterSettings on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n    }\n  }\n\n': {
+    return: NewsletterSettingsQuery;
+    variables: NewsletterSettingsQueryVariables;
+  };
+  '#graphql\n  query NewsletterSettingsByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "newsletter_settings"}) {\n      ...NewsletterSettings\n    }\n  }\n  #graphql\n  fragment NewsletterSettings on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n    }\n  }\n\n': {
+    return: NewsletterSettingsByHandleQuery;
+    variables: NewsletterSettingsByHandleQueryVariables;
+  };
+  '#graphql\n  query ProductFilters($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "product_filters", first: 50) {\n      nodes {\n        ...ProductFilter\n      }\n    }\n  }\n  #graphql\n  fragment ProductFilter on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n    }\n  }\n\n': {
+    return: ProductFiltersQuery;
+    variables: ProductFiltersQueryVariables;
+  };
+  '#graphql\n  query ProductFilterByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "product_filters"}) {\n      ...ProductFilter\n    }\n  }\n  #graphql\n  fragment ProductFilter on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n    }\n  }\n\n': {
+    return: ProductFilterByHandleQuery;
+    variables: ProductFilterByHandleQueryVariables;
+  };
+  '#graphql\n  query SiteSettings($country: CountryCode, $language: LanguageCode)\n  @inContext(country: $country, language: $language) {\n    metaobjects(type: "site_settings", first: 5) {\n      nodes {\n        ...SiteSettings\n      }\n    }\n  }\n  #graphql\n  fragment SiteSettings on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: SiteSettingsQuery;
+    variables: SiteSettingsQueryVariables;
+  };
+  '#graphql\n  query SiteSettingsByHandle(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    metaobject(handle: {handle: $handle, type: "site_settings"}) {\n      ...SiteSettings\n    }\n  }\n  #graphql\n  fragment SiteSettings on Metaobject {\n    id\n    handle\n    type\n    fields {\n      key\n      value\n      reference {\n        ... on MediaImage {\n          id\n          image {\n            url\n            altText\n            width\n            height\n          }\n        }\n      }\n    }\n  }\n\n': {
+    return: SiteSettingsByHandleQuery;
+    variables: SiteSettingsByHandleQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
