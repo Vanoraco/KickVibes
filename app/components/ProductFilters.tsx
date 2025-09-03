@@ -1,4 +1,5 @@
 
+import { useState, useRef, useEffect } from 'react';
 import type { ProductFilter } from '~/lib/metaobjects/product-filters';
 import { DEFAULT_PRODUCT_FILTERS, getSizeOptions, getPriceRangeFilter } from '~/lib/metaobjects/product-filters';
 
@@ -170,15 +171,10 @@ export function ProductFilters({
           {/* Availability Filter */}
           <div className="filter-section">
             <h4 className="filter-title">Availability</h4>
-            <select
+            <EnhancedAvailabilityFilter
               value={availabilityFilter}
-              onChange={(e) => onAvailabilityChange(e.target.value as any)}
-              className="availability-select"
-            >
-              <option value="all">All Products</option>
-              <option value="in-stock">In Stock</option>
-              <option value="on-sale">On Sale</option>
-            </select>
+              onChange={onAvailabilityChange}
+            />
           </div>
 
           {/* Size Filter */}
@@ -217,6 +213,98 @@ export function ProductFilters({
             </div>
           )}
       </div>
+    </div>
+  );
+}
+
+// Enhanced Availability Filter Component
+interface EnhancedAvailabilityFilterProps {
+  value: 'all' | 'in-stock' | 'on-sale';
+  onChange: (value: 'all' | 'in-stock' | 'on-sale') => void;
+}
+
+function EnhancedAvailabilityFilter({ value, onChange }: EnhancedAvailabilityFilterProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const availabilityOptions = [
+    { value: 'all', label: 'All Products', icon: '📦', description: 'Show all items' },
+    { value: 'in-stock', label: 'In Stock', icon: '✅', description: 'Available now' },
+    { value: 'on-sale', label: 'On Sale', icon: '🏷️', description: 'Discounted items' },
+  ];
+
+  const selectedOption = availabilityOptions.find(option => option.value === value) || availabilityOptions[0];
+
+  const handleOptionClick = (optionValue: 'all' | 'in-stock' | 'on-sale') => {
+    onChange(optionValue);
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div className="enhanced-availability-filter" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`enhanced-availability-trigger ${isOpen ? 'open' : ''}`}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+      >
+        <div className="enhanced-availability-selected">
+          <span className="enhanced-availability-icon">{selectedOption.icon}</span>
+          <div className="enhanced-availability-text">
+            <span className="enhanced-availability-label">{selectedOption.label}</span>
+            <span className="enhanced-availability-description">{selectedOption.description}</span>
+          </div>
+        </div>
+        <svg
+          className={`enhanced-availability-chevron ${isOpen ? 'rotated' : ''}`}
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <polyline points="6,9 12,15 18,9"/>
+        </svg>
+      </button>
+
+      {isOpen && (
+        <div className="enhanced-availability-dropdown">
+          <div className="enhanced-availability-options">
+            {availabilityOptions.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleOptionClick(option.value as 'all' | 'in-stock' | 'on-sale')}
+                className={`enhanced-availability-option ${option.value === value ? 'selected' : ''}`}
+                role="option"
+                aria-selected={option.value === value}
+              >
+                <span className="enhanced-availability-option-icon">{option.icon}</span>
+                <div className="enhanced-availability-option-text">
+                  <span className="enhanced-availability-option-label">{option.label}</span>
+                  <span className="enhanced-availability-option-description">{option.description}</span>
+                </div>
+                {option.value === value && (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polyline points="20,6 9,17 4,12"/>
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
