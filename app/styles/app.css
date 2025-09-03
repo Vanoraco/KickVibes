@@ -279,7 +279,33 @@ button.reset:hover:not(:has(> *)) {
   padding: 0 1rem;
   height: 70px;
   transition: all 0.3s ease;
-  gap: 2rem;
+  gap: 1rem;
+}
+
+/* Mobile-specific header layout adjustments */
+@media (max-width: 767px) {
+  .kickvibes-header-container {
+    gap: 0.5rem;
+  }
+
+  /* Create a flex container for search and cart on mobile */
+  .kickvibes-header-container .new-search-bar {
+    order: 2;
+  }
+
+  .kickvibes-header-container .kickvibes-header-actions {
+    order: 3;
+  }
+
+  .kickvibes-header-container .kickvibes-logo {
+    order: 1;
+    flex: 1;
+  }
+
+  /* Hide desktop navigation on mobile */
+  .kickvibes-header-container .kickvibes-header-menu-desktop {
+    display: none;
+  }
 }
 
 .kickvibes-logo {
@@ -444,6 +470,13 @@ button.reset:hover:not(:has(> *)) {
   align-items: center;
   gap: 0;
   flex-shrink: 0;
+}
+
+/* Mobile header actions positioning */
+@media (max-width: 767px) {
+  .kickvibes-header-actions {
+    margin-left: 0;
+  }
 }
 
 /* Mobile toggle - visible by default */
