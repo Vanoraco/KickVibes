@@ -123,7 +123,9 @@ function SearchResultsProducts({
                     <Image
                       data={image}
                       alt={product.title}
-                      width={50}
+                      width={80}
+                      height={80}
+                      loading="lazy"
                     />
                   )}
                   <div>

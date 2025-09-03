@@ -156,8 +156,14 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
     id
     title
     handle
+    availableForSale
+    vendor
     priceRange {
       minVariantPrice {
+        amount
+        currencyCode
+      }
+      maxVariantPrice {
         amount
         currencyCode
       }

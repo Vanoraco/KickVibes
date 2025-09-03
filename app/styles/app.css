@@ -1994,7 +1994,54 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .search-results-item {
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.search-results-item:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.search-results-item a {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-results-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+  background: #f8fafc;
+}
+
+.search-results-item div {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-results-item p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.4;
+}
+
+.search-results-item small {
+  font-size: 0.9rem;
+  color: #667eea;
+  font-weight: 600;
 }
 
 .search-results-item a {
@@ -2182,4 +2229,32 @@ button.reset:hover:not(:has(> *)) {
 
 .account-logout {
   display: inline-block;
+}
+
+/*
+* --------------------------------------------------
+* Product Stock Badge Styles
+* --------------------------------------------------
+*/
+.product-stock-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.product-stock-badge.in-stock {
+  background: #10b981;
+  color: white;
+}
+
+.product-stock-badge.out-of-stock {
+  background: #ef4444;
+  color: white;
 }

@@ -136,9 +136,9 @@ function EnhancedProductCard({ product, index }: { product: any; index: number }
             />
           )}
 
-          {!availableForSale && (
-            <div className="product-stock-badge">OUT OF STOCK</div>
-          )}
+          <div className={`product-stock-badge ${availableForSale ? 'in-stock' : 'out-of-stock'}`}>
+            {availableForSale ? 'IN STOCK' : 'OUT OF STOCK'}
+          </div>
         </div>
 
         <div className="product-info">
