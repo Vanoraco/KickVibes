@@ -732,8 +732,8 @@
 .price-range-slider-container {
   position: relative;
   margin: 1.5rem 0;
-  padding: 9px 0;
-  height: 18px;
+  padding: 25px 0;
+  height: 50px;
   overflow: visible;
 }
 
@@ -743,11 +743,12 @@
   left: 0;
   right: 0;
   height: 6px;
-  background: linear-gradient(90deg, #e5e7eb 0%, #d1d5db 100%);
+  background: #e5e7eb;
   border-radius: 3px;
   transform: translateY(-50%);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  overflow: visible;
+  overflow: hidden;
+  z-index: 0;
 }
 
 .price-range-track {
@@ -757,12 +758,10 @@
   border-radius: 3px;
   transition: none !important;
   z-index: 1;
-  box-shadow:
-    0 2px 8px rgba(45, 27, 105, 0.4),
-    inset 0 1px 0 rgba(147, 51, 234, 0.3),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(45, 27, 105, 0.4);
   border: 1px solid rgba(147, 51, 234, 0.3);
   will-change: left, width;
+  overflow: hidden;
 }
 
 /* Fixed Range Input Styling */
@@ -771,7 +770,7 @@
   top: 50%;
   left: 0;
   width: 100%;
-  height: 6px;
+  height: 40px;
   background: transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -779,9 +778,10 @@
   outline: none;
   cursor: pointer;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 100;
   margin: 0;
   padding: 0;
+  pointer-events: auto;
 }
 
 /* WebKit Slider Styling - Fixed Visibility */
@@ -796,27 +796,30 @@
 .range-slider::-webkit-slider-thumb {
   -webkit-appearance: none !important;
   appearance: none !important;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #ffffff !important;
-  border: 2px solid #2d1b69 !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: #2d1b69 !important;
+  border: 4px solid #ffffff !important;
   cursor: pointer !important;
-  box-shadow: 0 2px 6px rgba(45, 27, 105, 0.3) !important;
+  box-shadow: 0 8px 16px rgba(45, 27, 105, 0.6) !important;
   transition: all 0.15s ease;
-  position: relative;
-  z-index: 100;
-  margin-top: -6px;
+  position: relative !important;
+  z-index: 1000 !important;
+  margin-top: -17px !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 .range-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(45, 27, 105, 0.4);
   border-color: #9333ea;
+  background-color: #f8fafc !important;
 }
 
 .range-slider::-webkit-slider-thumb:active {
-  transform: scale(1.1);
+  transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(45, 27, 105, 0.5);
 }
 
@@ -830,21 +833,27 @@
 }
 
 .range-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   background: #ffffff;
-  border: 2px solid #2d1b69;
+  border: 3px solid #2d1b69;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(45, 27, 105, 0.3);
+  box-shadow: 0 6px 12px rgba(45, 27, 105, 0.5);
   -moz-appearance: none;
   transition: all 0.15s ease;
+  opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%232d1b69' stroke='%232d1b69' stroke-width='1.5'%3E%3Cpath d='M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px 24px;
 }
 
 .range-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(45, 27, 105, 0.4);
   border-color: #9333ea;
+  background-color: #f8fafc;
 }
 
 /* Proper layering for dual sliders - Fix left slider issue */
