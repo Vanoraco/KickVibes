@@ -107,19 +107,19 @@
 .category-running-bg {
   background: 
     linear-gradient(135deg, rgba(59, 130, 246, 0.8) 0%, rgba(147, 51, 234, 0.6) 100%),
-    url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop&crop=center');
+    url('https://cdn.shopify.com/s/files/1/0757/9461/2478/files/photo-1571019613454-1cb2f99b2d8b.jpg?v=1757010353');
 }
 
 .category-woman-bg {
   background: 
     linear-gradient(135deg, rgba(236, 72, 153, 0.8) 0%, rgba(219, 39, 119, 0.6) 100%),
-    url('https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=600&fit=crop&crop=center');
+    url('https://cdn.shopify.com/s/files/1/0757/9461/2478/files/photo-1595950653106-6c9ebd614d3a.jpg?v=1757010352');
 }
 
 .category-man-bg {
   background: 
     linear-gradient(135deg, rgba(75, 85, 99, 0.8) 0%, rgba(55, 65, 81, 0.6) 100%),
-    url('https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=600&fit=crop&crop=center');
+    url('https://cdn.shopify.com/s/files/1/0757/9461/2478/files/photo-1549298916-b41d501d3772_1.jpg?v=1757010352');
 }
 
 .category-accent {

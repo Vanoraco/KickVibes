@@ -287,13 +287,13 @@ export const DEFAULT_HERO_SECTION: HeroSection = {
   mainImageAltText: 'KickVibes Sneaker',
   thumbnailImage1: {
     id: 'default-thumb-1',
-    url: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=80&h=80&fit=crop&crop=center',
+    url: 'https://cdn.shopify.com/s/files/1/0757/9461/2478/files/photo-1549298916-b41d501d3772.jpg?v=1757010182',
     altText: 'KickVibes Black',
   },
   thumbnail1AltText: 'KickVibes Black',
   thumbnailImage2: {
     id: 'default-thumb-2',
-    url: 'https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=80&h=80&fit=crop&crop=center',
+    url: 'https://cdn.shopify.com/s/files/1/0757/9461/2478/files/photo-1600185365483-26d7a4cc7519.jpg?v=1757010182',
     altText: 'KickVibes Blue',
   },
   thumbnail2AltText: 'KickVibes Blue',
